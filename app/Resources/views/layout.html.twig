@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+  </head>
+  <body>
+
+    <!-- Header with logo on the left and main title on the right, the subtitle tells the user where he is -->
+    <header>
+      <aside class="headerAside">
+        <figure>
+          <img src="" alt="">
+        </figure>
+      </aside>
+      <section>
+        <h1 class="mainTitle">Code toujours tu m'intéresse</h1>
+        <h2 class="subTitle">{% block sub_title %}Vous êtes sur : {% endblock %}</h2>
+      </section>
+    </header>
+
+      <!-- General block with menu and main content -->
+      {% block general %}{% endblock %}
+
+    <!-- Footer with random text -->
+    <footer>
+      <h3>Une création <a href="www.thomas-gossart.fr">Thomas Gossart</a> pour les apprenants de Simplon Roubaix</h3>
+    </footer>
+  </body>
+</html>

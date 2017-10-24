@@ -1,0 +1,8 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Article détaillé{% endblock %}
+
+{% block main %}
+  Ok bienvenu sur l'index
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "::layout.html.twig" %}
+
+{% block general %}
+
+<!-- Main navigation -->
+  <nav>
+    <ul>
+      <li><a href="#">Acceuil</a></li>
+      <li><a href="#">Langages</a></li>
+      <li><a href="#">Méthodes</a></li>
+      <li><a href="#">Derniers ajouts</a></li>
+    </ul>
+  </nav>
+
+  <!-- Block for the view -->
+  {% block main %}{% endblock %}
+
+{% endblock %}
