@@ -48,6 +48,11 @@ class Article
     private $image;
 
     /**
+     *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", cascade={"persist"})
+     */
+    private $categories;
+
+    /**
      * Get id
      *
      * @return int
@@ -159,6 +164,41 @@ class Article
     public function __construct()
     {
         $this->date = new \Datetime();
+        $this->categories = new ArrayCollection;
     }
 
+
+    /**
+     * Add category
+     *
+     * @param \CoreBundle\Entity\Category $category
+     *
+     * @return Article
+     */
+    public function addCategory(\CoreBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \CoreBundle\Entity\Category $category
+     */
+    public function removeCategory(\CoreBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 }

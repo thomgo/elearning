@@ -48,6 +48,11 @@ class Article
     private $image;
 
     /**
+     *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", cascade={"persist"})
+     */
+    private $categories;
+
+    /**
      * Get id
      *
      * @return int
@@ -130,14 +135,35 @@ class Article
     }
 
 
-
-    public function __construct()
+    /**
+     * Set image
+     *
+     * @param \CoreBundle\Entity\Image $image
+     *
+     * @return Article
+     */
+    public function setImage(\CoreBundle\Entity\Image $image = null)
     {
-    $this->date = new \Datetime();
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \CoreBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
 
 
-
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+    }
 
 }

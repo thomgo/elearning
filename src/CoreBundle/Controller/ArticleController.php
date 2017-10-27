@@ -17,19 +17,13 @@ class ArticleController extends Controller
         $em  = $this->getDoctrine()->getManager();
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
-        //Get the last three inserted articles
-        // $query = $em->createQuery("
-        //   SELECT a.id, a.title, a.date
-        //   FROM CoreBundle:Article a
-        //   ORDER BY a.id DESC
-        // ")
-        // ->setMaxResults(3);
-
         $query = $articleRepository->createQueryBuilder('a')
         ->orderBy("a.id", "DESC")
-        ->setMaxResults(3)
+        ->setMaxResults(5)
         ->leftJoin("a.image", "img")
         ->addSelect("img")
+        ->leftJoin("a.categories", "cat")
+        ->addSelect("cat")
         ->getQuery();
 
         $articles = $query->getResult();
@@ -49,4 +43,5 @@ class ArticleController extends Controller
 
         return $this->render('CoreBundle:Article:single.html.twig', ["article"=>$article]);
     }
+
 }
