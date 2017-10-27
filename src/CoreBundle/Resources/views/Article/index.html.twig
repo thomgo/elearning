@@ -4,5 +4,25 @@
 {% block sub_title %}{{ parent()}} Index{% endblock %}
 
 {% block main %}
-  Ok bienvenu sur l'index
+
+  <h2>Bienvenue sur le site de e-learning des technologies web</h2>
+
+  <p>L'objectif de cette plateforme est de fournir à tous ceux qui souhaitent apprendre le métier de développeur web des ressources gratuites et adaptée à leur niveau</p>
+
+  <h3 class="my-5">Les dernières publications</h3>
+  <div class="row">
+    {% for article in articles %}
+    <div class="col col-sm-6 col-lg-4">
+      <div class="card my-3">
+        <img class="card-img-top img-fluid" src="{% if article.image.path is defined %} {{ asset(article.image.fullPath) }} {% endif %}" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">{{ article.title }} || {{ article.date|date('d-m-Y') }}</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="{{ path('single', {"id": article.id}) }}" class="btn cardButton tlightBlue">Voir l'article</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
 {% endblock %}

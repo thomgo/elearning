@@ -3,16 +3,40 @@
 {% block general %}
 
 <!-- Main navigation -->
-  <nav>
-    <ul>
-      <li><a href="#">Acceuil</a></li>
-      <li><a href="#">Langages</a></li>
-      <li><a href="#">Méthodes</a></li>
-      <li><a href="#">Derniers ajouts</a></li>
+
+<nav class="navbar navbar-toggleable-md darkBlue">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link tWhite" href="#">Accueil<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle tWhite" type="button" role="button" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Langages
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">HTML</a>
+          <a class="dropdown-item" href="#">CSS</a>
+          <a class="dropdown-item" href="#">JavaScript</a>
+          <a class="dropdown-item" href="#">PHP</a>
+          <a class="dropdown-item" href="#">SQL</a>
+        </div>
+      <li class="nav-item">
+        <a class="nav-link tWhite" href="#">Méthodes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link tWhite" href="#">Derniers ajouts</a>
+      </li>
     </ul>
-  </nav>
+  </div>
+</nav>
 
   <!-- Block for the view -->
-  {% block main %}{% endblock %}
+  <main class="container my-5">
+    {% block main %}{% endblock %}
+  </main>
 
 {% endblock %}

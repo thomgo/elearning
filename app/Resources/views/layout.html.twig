@@ -3,19 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   </head>
   <body>
 
     <!-- Header with logo on the left and main title on the right, the subtitle tells the user where he is -->
-    <header>
-      <aside class="headerAside">
-        <figure>
-          <img src="" alt="">
-        </figure>
-      </aside>
-      <section>
-        <h1 class="mainTitle">Code toujours tu m'intéresse</h1>
-        <h2 class="subTitle">{% block sub_title %}Vous êtes sur : {% endblock %}</h2>
+
+    <header class="jumbotron jumbotron-fluid mb-0 lightBlue tWhite">
+      <section class="container text-center">
+        <h1 class="display-5">Code toujours tu m'intéresses</h1>
+        <p class="lead">{% block sub_title %}Vous êtes sur : {% endblock %}</p>
       </section>
     </header>
 
@@ -23,8 +21,14 @@
       {% block general %}{% endblock %}
 
     <!-- Footer with random text -->
-    <footer>
-      <h3>Une création <a href="www.thomas-gossart.fr">Thomas Gossart</a> pour les apprenants de Simplon Roubaix</h3>
-    </footer>
+    <div class="jumbotron jumbotron-fluid darkBlue tWhite mb-0">
+      <div class="container text-center">
+        <h4>Une création <a href="www.thomas-gossart.fr">Thomas Gossart</a> pour les apprenants de Simplon Roubaix</h4>
+      </div>
+    </div>
+
+    <script src="{{ asset('JS/jquery.js') }}"></script>
+    <script src="{{ asset('JS/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('JS/main.js') }}"></script>
   </body>
 </html>
