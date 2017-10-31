@@ -44,4 +44,26 @@ class ArticleController extends Controller
         return $this->render('CoreBundle:Article:single.html.twig', ["article"=>$article]);
     }
 
+
+    /**
+    * @Route("/articles/{category}.{format}", requirements={"category" : "[a-z]+"}, name="articlesCategory")
+    */
+    public function CategoryAction($category, $format = "html") {
+
+      $em  = $this->getDoctrine()->getManager();
+      $categoryRepository = $em->getRepository('CoreBundle:Category');
+
+      $query = $categoryRepository->createQueryBuilder('c')
+      ->where('c.name = :category')
+      ->setParameter('category', $category)
+      ->leftJoin("c.articles", "art")
+      ->addSelect("art")
+      ->leftJoin("art.image", "img")
+      ->addSelect("img")
+      ->getQuery();
+
+      $categoryArticles = $query->getResult();
+
+      return $this->render('CoreBundle:Article:articleCategory.html.twig', ["categoryArticles"=>$categoryArticles]);
+    }
 }

@@ -1,0 +1,10 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+
+  <p>C'est l'admin</p>
+
+{% endblock %}

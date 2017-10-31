@@ -48,7 +48,7 @@ class Article
     private $image;
 
     /**
-     *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", cascade={"persist"})
+     *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", inversedBy="articles", cascade={"persist"})
      */
     private $categories;
 
@@ -178,6 +178,8 @@ class Article
     public function addCategory(\CoreBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
+
+        $category->addArticle($this);
 
         return $this;
     }

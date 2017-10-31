@@ -5,6 +5,7 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
   </head>
   <body>
 
@@ -13,7 +14,14 @@
     <header class="jumbotron jumbotron-fluid mb-0 lightBlue tWhite">
       <section class="container text-center">
         <h1 class="display-5">Code toujours tu m'intéresses</h1>
-        <p class="lead">{% block sub_title %}Vous êtes sur : {% endblock %}</p>
+        <p class="lead">
+          {% block sub_title %}
+            {% if app.user.username is defined %}
+              {{ app.user.username }},
+            {% endif %}
+            vous êtes sur :
+          {% endblock %}
+        </p>
       </section>
     </header>
 

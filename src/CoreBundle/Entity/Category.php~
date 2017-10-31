@@ -32,7 +32,7 @@ class Category
      * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\Article", mappedBy="categories")
      */
 
-    private $articles;
+  private $articles;
 
 
     /**
@@ -67,46 +67,5 @@ class Category
     public function getName()
     {
         return $this->name;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add article
-     *
-     * @param \CoreBundle\Entity\Article $article
-     *
-     * @return Category
-     */
-    public function addArticle(\CoreBundle\Entity\Article $article)
-    {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param \CoreBundle\Entity\Article $article
-     */
-    public function removeArticle(\CoreBundle\Entity\Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
     }
 }
