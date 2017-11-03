@@ -42,7 +42,22 @@
   <!-- Block for the view -->
   <main class="container my-5">
     <div class="row">
-      {% block main %}{% endblock %}
+      <div class="col-4">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('adminView', {"entity": "Article"}) }}">Articles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('adminView', {"entity": "User"}) }}">Utilisateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('adminView', {"entity": "Category"}) }}">Categories</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-8">
+        {% block main %}{% endblock %}
+      </div>
     </div>
   </main>
 
