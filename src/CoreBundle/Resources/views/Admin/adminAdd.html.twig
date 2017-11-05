@@ -1,0 +1,10 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout{% endblock %}
+
+{% block main %}
+
+  {{ form(form) }}
+
+{% endblock %}

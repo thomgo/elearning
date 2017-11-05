@@ -18,7 +18,7 @@ class AdminController extends Controller
   }
 
   /**
-   * @Route("/admin/view/{entity}", requirements={"category" : "[a-z]+"}, name ="adminView")
+   * @Route("/admin/view/{entity}", requirements={"entity" : "[a-z A-Z]+"}, name ="adminView")
    */
   public function viewAction($entity)
   {
