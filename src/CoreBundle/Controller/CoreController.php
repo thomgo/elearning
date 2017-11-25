@@ -66,4 +66,12 @@ class CoreController extends Controller
 
       return $this->render('CoreBundle:Article:articleCategory.html.twig', ["categoryArticles"=>$categoryArticles]);
     }
+
+    /**
+     * @Route("/admin/index", name ="adminIndex")
+     */
+    public function adminAction()
+    {
+      return $this->render('CoreBundle:Admin:adminIndex.html.twig');
+    }
 }
