@@ -66,7 +66,7 @@ class CategoryController extends Controller
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/{id}", name="category_show")
+     * @Route("/category/{id}", name="category_show")
      * @Method("GET")
      */
     public function showAction(Category $category)
@@ -82,7 +82,7 @@ class CategoryController extends Controller
     /**
      * Displays a form to edit an existing category entity.
      *
-     * @Route("/{id}/edit", name="category_edit")
+     * @Route("category/{id}/edit", name="category_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Category $category)
@@ -97,7 +97,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
         }
 
-        return $this->render('category/edit.html.twig', array(
+        return $this->render('CoreBundle:Admin/Category:edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

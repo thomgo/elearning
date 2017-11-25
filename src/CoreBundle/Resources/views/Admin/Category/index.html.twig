@@ -22,6 +22,9 @@
               {{ form_start(delete_form[loop.index0]) }}
                   <input type="submit" value="Delete">
               {{ form_end(delete_form[loop.index0]) }}
+
+              <a class="btn" href="{{ path('category_show', {"id" : category.id }) }}">Voir</a>
+              <a class="btn" href="{{ path('category_edit', {"id" : category.id }) }}">Modifier</a>
             </td>
           </tr>
         {% endfor %}
