@@ -1,0 +1,31 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+  <a href="{{ path('category_new') }}">Ajouter</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Nom</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+          <tr>
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.name }}</td>
+            <td>
+              {{ form_start(delete_form[loop.index0]) }}
+                  <input type="submit" value="Delete">
+              {{ form_end(delete_form[loop.index0]) }}
+            </td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

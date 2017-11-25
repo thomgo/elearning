@@ -1,0 +1,18 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout{% endblock %}
+
+{% block main %}
+
+  <h2>Category creation</h2>
+
+  {{ form(form) }}
+
+  <ul>
+      <li>
+          <a href="{{ path('category_index') }}">Back to the list</a>
+      </li>
+  </ul>
+
+{% endblock %}
