@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use CoreBundle\Service\DeleteFormGenerator;
 
 /**
  * Category controller.
@@ -20,18 +21,14 @@ class CategoryController extends Controller
      *
      * @Route("/categories", name="category_index")
      */
-    public function indexAction()
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('CoreBundle:Category')->findAll();
 
-        //Create a delete form for each category
-        $deleteForm = [];
-        foreach ($categories as $key => $category) {
-          $deleteForm[$key] = $this->createDeleteForm($category);
-          $deleteForm[$key] = $deleteForm[$key]->createView();
-        }
+        $deleteForm = $DeleteFormGenerator->generateDeleteForms($categories, 'category_delete');
+
         return $this->render('CoreBundle:Admin/Category:index.html.twig', array(
             'categories' => $categories,
             'delete_form' => $deleteForm,
