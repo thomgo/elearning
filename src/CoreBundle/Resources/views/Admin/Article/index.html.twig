@@ -5,33 +5,37 @@
 
 {% block main %}
     <a href="{{ path('admin_article_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
-    <table>
-        <thead>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Titre</th>
+          <th>Date</th>
+          <th>categories</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for article in articles %}
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Actions</th>
+              <th scope="row">{{ article.id }}</th>
+              <td>{{ article.title }}</td>
+              <td> {% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>
+              <td>
+                {% for category in article.categories %}
+                  {{ category.name }}
+                {% endfor %}
+              </td>
+              <td class="adminActions">
+                {{ form_start(delete_form[loop.index0]) }}
+                    <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                {{ form_end(delete_form[loop.index0]) }}
+
+                <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('admin_article_show', {"id" : article.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                <a class="btn darkBlue tWhite mx-1" href="{{ path('admin_article_edit', {"id" : article.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+              </td>
             </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td><a href="{{ path('admin_article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
-                <td>{{ article.title }}</td>
-                <td>{% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_article_show', { 'id': article.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+          {% endfor %}
+      </tbody>
+  </table>
 {% endblock %}

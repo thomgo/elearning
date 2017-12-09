@@ -6,7 +6,7 @@ use CoreBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
-
+use CoreBundle\Service\DeleteFormGenerator;
 /**
  * Article controller.
  *
@@ -20,14 +20,24 @@ class ArticleController extends Controller
      * @Route("/", name="admin_article_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('CoreBundle:Article')->findAll();
+        $articleRepository = $em->getRepository('CoreBundle:Article');
+
+        $query = $articleRepository->createQueryBuilder("a")
+        ->leftjoin("a.categories", "ctg")
+        ->addSelect("ctg")
+        ->getQuery();
+
+        $articles = $query->getResult();
+
+        $deleteForm = $DeleteFormGenerator->generateDeleteForms($articles, 'admin_article_delete');
 
         return $this->render('CoreBundle:Admin/Article:index.html.twig', array(
             'articles' => $articles,
+            'delete_form' => $deleteForm,
         ));
     }
 
