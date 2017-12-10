@@ -1,16 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends "CoreBundle::adminLayout.html.twig" %}
 
-{% block body %}
-    <h1>Article creation</h1>
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout{% endblock %}
+
+{% block main %}
+    <h2>Ajout d'un article</h2>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Ajouter l'article" />
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('admin_article_index') }}">Back to the list</a>
+            <a href="{{ path('admin_article_index') }}">Retour à la liste des articles</a>
         </li>
     </ul>
 {% endblock %}
