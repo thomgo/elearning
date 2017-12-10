@@ -23,6 +23,7 @@ class ArticleType extends AbstractType
           'class'=> 'CoreBundle:Category',
           'choice_label'=> 'name',
           'multiple' => true,
+          "expanded" => true,
         ]);
     }
 
