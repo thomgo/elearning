@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Article
@@ -51,6 +52,12 @@ class Article
      *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", inversedBy="articles", cascade={"persist"})
      */
     private $categories;
+
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+        $this->categories = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -157,14 +164,6 @@ class Article
     public function getImage()
     {
         return $this->image;
-    }
-
-
-
-    public function __construct()
-    {
-        $this->date = new \Datetime();
-        $this->categories = new ArrayCollection;
     }
 
 

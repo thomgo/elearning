@@ -61,7 +61,7 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin_article_show', array('id' => $article->getId()));
         }
 
-        return $this->render('article/new.html.twig', array(
+        return $this->render('CoreBundle:Admin/Article:new.html.twig', array(
             'article' => $article,
             'form' => $form->createView(),
         ));

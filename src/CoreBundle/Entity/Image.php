@@ -49,6 +49,8 @@ class Image
      */
     private $weight;
 
+    private $file;
+
 
     /**
      * Get id
@@ -146,6 +148,8 @@ class Image
         return $this;
     }
 
+
+
     /**
      * Get weight
      *
@@ -164,5 +168,21 @@ class Image
     public function getFullPath()
     {
         return $this->path . $this->name;
+    }
+
+    public function setFile(UploadedFile $file = null)
+    {
+      $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return UploadedFile
+     */
+
+    public function getFile()
+    {
+      return $this->file;
     }
 }
