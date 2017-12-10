@@ -170,7 +170,7 @@ class Image
         return $this->path . $this->name;
     }
 
-    public function setFile(UploadedFile $file = null)
+    public function setFile( $file = null)
     {
       $this->file = $file;
     }
@@ -208,6 +208,6 @@ class Image
 
     protected function getUploadRootDir()
     {
-      return __DIR__.'/../../../../web/img';
+      return __DIR__.'/../../../web/img';
     }
 }

@@ -54,6 +54,7 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->getImage()->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -77,7 +78,7 @@ class ArticleController extends Controller
     {
         $deleteForm = $this->createDeleteForm($article);
 
-        return $this->render('article/show.html.twig', array(
+        return $this->render('CoreBundle:Admin/Article:show.html.twig', array(
             'article' => $article,
             'delete_form' => $deleteForm->createView(),
         ));
