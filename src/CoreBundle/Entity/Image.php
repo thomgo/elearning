@@ -195,8 +195,6 @@ class Image
       $name = $this->file->getClientOriginalName();
       $this->setName($name);
 
-      $this->setAlt($name);
-
       $weight = $this->file->getClientSize();
       $this->setWeight($weight);
 
