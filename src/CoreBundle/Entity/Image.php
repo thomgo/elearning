@@ -185,4 +185,29 @@ class Image
     {
       return $this->file;
     }
+
+    public function upload() {
+      if($this->file === null) {
+        return;
+      }
+
+      //get the name of the uploaded file
+      $name = $this->file->getClientOriginalName();
+      $this->setName($name);
+
+      $this->setAlt($name);
+
+      $weight = $this->file->getClientSize();
+      $this->setWeight($weight);
+
+      $this->setPath("img/");
+
+      $this->file->move($this->getUploadRootDir(), $name);
+
+    }
+
+    protected function getUploadRootDir()
+    {
+      return __DIR__.'/../../../../web/img';
+    }
 }
