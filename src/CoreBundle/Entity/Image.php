@@ -175,10 +175,11 @@ class Image
         return $this->path . $this->id . $this->name;
     }
 
+
     public function setFile(UploadedFile $file = null)
     {
       $this->file = $file;
-
+      //If there is already an image store the server name
       if(isset($this->name)) {
         $this->tempFileName = $this->id . $this->name;
         $this->name = null;
@@ -212,9 +213,11 @@ class Image
       $name = $this->file->getClientOriginalName();
       $this->setName($name);
 
+      //get the weight of the uploaded file
       $weight = $this->file->getClientSize();
       $this->setWeight($weight);
 
+      //Set default path as img/
       $this->setPath("img/");
 
     }
@@ -229,13 +232,13 @@ class Image
       if($this->file === null) {
         return;
       }
-
+      //If there was an older file delete it from the server
       if(isset($this->tempFileName)) {
         unlink($this->getUploadRootDir(). "/" . $this->tempFileName);
       }
 
+      //Store the new file on the server
       $name = $this->id . $this->name;
-
       $this->file->move($this->getUploadRootDir(), $name);
 
     }
