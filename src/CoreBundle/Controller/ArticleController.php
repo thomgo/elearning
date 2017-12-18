@@ -54,7 +54,6 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->getImage()->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();

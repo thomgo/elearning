@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Image
 {
@@ -50,6 +51,8 @@ class Image
     private $weight;
 
     private $file;
+
+    private $tempFileName;
 
 
     /**
@@ -167,12 +170,19 @@ class Image
      */
     public function getFullPath()
     {
-        return $this->path . $this->name;
+        return $this->path . $this->id . $this->name;
     }
 
     public function setFile( $file = null)
     {
       $this->file = $file;
+
+      if(isset($this->name)) {
+        $this->tempFileName = $this->id . $this->name;
+        $this->name = null;
+        $this->weight = null;
+        $this->path = null;
+      }
     }
 
     /**
@@ -186,7 +196,12 @@ class Image
       return $this->file;
     }
 
-    public function upload() {
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload() {
       if($this->file === null) {
         return;
       }
@@ -200,8 +215,46 @@ class Image
 
       $this->setPath("img/");
 
+    }
+
+
+  /**
+   * @ORM\PostPersist()
+   * @ORM\PostUpdate()
+   */
+
+    public function upload() {
+      if($this->file === null) {
+        return;
+      }
+
+      if(isset($this->tempFileName)) {
+        unlink($this->getUploadRootDir(). "/" . $this->tempFileName);
+      }
+
+      $name = $this->id . $this->name;
+
       $this->file->move($this->getUploadRootDir(), $name);
 
+    }
+
+
+  /**
+   * @ORM\PreRemove()
+   */
+
+   public function preRemoveUpload() {
+     $this->tempFileName = $this->id . $this->name;
+   }
+
+   /**
+    * @ORM\PostRemove()
+    */
+
+    public function postRemoveUpload() {
+      if(isset($this->tempFileName)) {
+        unlink($this->getUploadRootDir(). "/" . $this->tempFileName);
+      }
     }
 
     protected function getUploadRootDir()
