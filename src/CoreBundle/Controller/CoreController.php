@@ -17,16 +17,7 @@ class CoreController extends Controller
         $em  = $this->getDoctrine()->getManager();
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
-        $query = $articleRepository->createQueryBuilder('a')
-        ->orderBy("a.id", "DESC")
-        ->setMaxResults(5)
-        ->leftJoin("a.image", "img")
-        ->addSelect("img")
-        ->leftJoin("a.categories", "cat")
-        ->addSelect("cat")
-        ->getQuery();
-
-        $articles = $query->getResult();
+        $articles = $articleRepository->getArticlesImagesAndCategories();
 
         return $this->render('CoreBundle:Article:index.html.twig', ["articles"=>$articles]);
     }
