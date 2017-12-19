@@ -101,7 +101,7 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin_article_edit', array('id' => $article->getId()));
         }
 
-        return $this->render('article/edit.html.twig', array(
+        return $this->render('CoreBundle:Admin/Article:edit.html.twig', array(
             'article' => $article,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
