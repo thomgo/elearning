@@ -4,20 +4,29 @@
 {% block sub_title %}{{ parent()}} Administration - Votre article{% endblock %}
 
 {% block main %}
-    <h1>Article edit</h1>
+    <h1>Modification de l'article</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+      {{ form_errors(edit_form) }}
+
+      {{ form_row(edit_form.title) }}
+      {{ form_row(edit_form.content) }}
+      {{ form_row(edit_form.date) }}
+      <p>Image actuelle : </p>
+      <img class="form-current-img img-fluid" src="{% if article.image.path is defined %} {{ asset(article.image.fullPath) }} {% endif %}" alt="Card image cap">
+      {{ form_row(edit_form.image) }}
+      {{ form_row(edit_form.categories) }}
+      <input type="submit" value="Modifier" />
     {{ form_end(edit_form) }}
+
 
     <ul>
         <li>
-            <a href="{{ path('admin_article_index') }}">Back to the list</a>
+            <a href="{{ path('admin_article_index') }}">Retour aux articles</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>
