@@ -44,7 +44,7 @@ class Article
     private $date;
 
     /**
-     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Image", cascade={"persist", "remove"})
+     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Image", cascade={"remove"})
      */
     private $image;
 

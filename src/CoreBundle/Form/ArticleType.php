@@ -18,7 +18,10 @@ class ArticleType extends AbstractType
         ->add('title')
         ->add('content')
         ->add('date')
-        ->add('image', ImageType::class)
+        //The user is not forced to submit an image therefor this form is not required
+        ->add('image', ImageType::class, [
+          'required' => false
+        ])
         ->add('categories', EntityType::class, [
           'class'=> 'CoreBundle:Category',
           'choice_label'=> 'name',

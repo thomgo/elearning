@@ -56,6 +56,10 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
+            //If there is an image submitted in the form then persist it
+            if($article->getImage() != null) {
+              $em->persist($article->getImage());
+            }
             $em->flush();
 
             return $this->redirectToRoute('admin_article_show', array('id' => $article->getId()));
