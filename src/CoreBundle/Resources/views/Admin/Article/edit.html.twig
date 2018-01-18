@@ -13,7 +13,9 @@
       {{ form_row(edit_form.content) }}
       {{ form_row(edit_form.date) }}
       <p>Image actuelle : </p>
-      <img class="form-current-img img-fluid" src="{% if article.image.path is defined %} {{ asset(article.image.fullPath) }} {% endif %}" alt="Card image cap">
+      {% if article.image.path is defined %}
+        <img class="form-current-img img-fluid" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
+      {% endif %}
       {{ form_row(edit_form.image) }}
       {{ form_row(edit_form.categories) }}
       <input type="submit" value="Modifier" />
