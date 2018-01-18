@@ -4,8 +4,8 @@
 {% block sub_title %}{{ parent()}} Administration - Votre article{% endblock %}
 
 {% block main %}
-    <h1>Article</h1>
-
+    <h2 class="my-4"> Titre : {{ article.title }}</h2>
+    <h4> Informations </h4>
     <table>
         <tbody>
             <tr>
@@ -13,30 +13,33 @@
                 <td>{{ article.id }}</td>
             </tr>
             <tr>
-                <th>Title : </th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Content : </th>
-                <td>{{ article.content }}</td>
-            </tr>
-            <tr>
                 <th>Date : </th>
                 <td>{% if article.date %}{{ article.date|date('d-m-Y') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Image : </th>
+                <td>
+                  {% if article.image.path is defined %}
+                    <img class="form-current-img img-fluid" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
+                  {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
 
+    <h4 class="my-4">Contenu</h4>
+    <p> {{ article.content }} </p>
+
     <ul class="list-group mt-3">
         <li class="list-group-item">
-            <a href="{{ path('admin_article_index') }}">Back to the list</a>
+            <a href="{{ path('admin_article_index') }}">Retour aux articles</a>
         </li>
         <li class="list-group-item">
-            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}">Edit</a>
+            <a href="{{ path('admin_article_edit', { 'id': article.id }) }}">Modifier</a>
         </li>
         <li class="list-group-item">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>
