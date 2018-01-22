@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Path</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ path.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ path.title }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ path.duration }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ path.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_path_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_path_edit', { 'id': path.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
