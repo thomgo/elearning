@@ -1,0 +1,35 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+    <a href="{{ path('admin_path_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for path in paths %}
+            <tr>
+                <td>{{ path.id }}</td>
+                <td>{{ path.title }}</td>
+                <td>{{ path.description }}</td>
+                <td class="adminActions">
+                  {{ form_start(delete_form[loop.index0]) }}
+                      <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  {{ form_end(delete_form[loop.index0]) }}
+
+                  <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('admin_path_show', {"id" : path.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                  <a class="btn darkBlue tWhite mx-1" href="{{ path('admin_path_edit', {"id" : path.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -5,7 +5,9 @@ namespace CoreBundle\Controller;
 use CoreBundle\Entity\Path;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use CoreBundle\Service\DeleteFormGenerator;
 
 /**
  * Path controller.
@@ -20,14 +22,17 @@ class PathController extends Controller
      * @Route("/", name="admin_path_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
         $em = $this->getDoctrine()->getManager();
 
         $paths = $em->getRepository('CoreBundle:Path')->findAll();
 
-        return $this->render('path/index.html.twig', array(
+        $deleteForm = $DeleteFormGenerator->generateDeleteForms($paths, 'admin_path_delete');
+
+        return $this->render('CoreBundle:Admin/Path:index.html.twig', array(
             'paths' => $paths,
+            'delete_form' =>$deleteForm
         ));
     }
 
