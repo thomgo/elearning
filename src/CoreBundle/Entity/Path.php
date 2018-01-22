@@ -137,9 +137,25 @@ class Path
 
 
     /**
-    * @return Collection|Modules[] 
+    * @return Collection|Modules[]
     */
     public function getModules() {
       return $this->modules;
     }
+
+    public function addModule(Module $module) {
+      if($this->modules>contains($module)) {
+        return;
+      }
+
+      $this->modules[] = $module;
+
+      $module->setPath($this);
+    }
+
+    public function removeModule(Module $module) {
+      $this->modules->removeElement($module);
+      $module->setPath(null);
+    }
+
 }

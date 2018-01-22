@@ -136,7 +136,7 @@ class Module
      * Set path
     */
 
-    public function setPath(Path $path) {
+    public function setPath(Path $path = null) {
       $this->path = $path;
     }
 
