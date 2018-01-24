@@ -20,11 +20,20 @@ class ModuleController extends Controller
      * Lists all module entities.
      *
      * @Route("/", name="admin_module_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator , Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $choices = ["test1", "test2", "test3", "test4"];
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$choices]);
+
+        $sortingForm->handleRequest($request);
+
+         if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
+             // data is an array with "name", "email", and "message" keys
+             $sortingKey = $sortingForm->getData();
+         }
 
         $modules = $em->getRepository('CoreBundle:Module')->findAll();
 
@@ -32,7 +41,8 @@ class ModuleController extends Controller
 
         return $this->render('CoreBundle:Admin/Module:index.html.twig', array(
             'modules' => $modules,
-            'delete_form'=>$deleteForm
+            'delete_form'=>$deleteForm,
+            'sorting_form' => $sortingForm->createView()
         ));
     }
 
