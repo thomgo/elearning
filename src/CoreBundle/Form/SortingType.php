@@ -22,7 +22,7 @@ class SortingType extends AbstractType
         $builder->add('sort', ChoiceType::class, [
         'choices'  => $options['choices'],
         'choice_label' => function ($value, $key, $index) {
-          return $value;
+          return $value->getTitle();
         }
         ]);
     }
@@ -32,6 +32,7 @@ class SortingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        //Add a choices index to $option
         $resolver->setDefaults(array(
             'choices'=>null
         ));

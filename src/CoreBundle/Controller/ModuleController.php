@@ -26,19 +26,22 @@ class ModuleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $pathNames = $em->getRepository("CoreBundle:Path")->getPathTitles();
+        //Get all the paths and pass it to the sorting form
+        $paths = $em->getRepository("CoreBundle:Path")->findAll();
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$paths]);
 
-        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$pathNames]);
-
+        //Treat the form, if submitted get modules whose path_id matches the one returned by the form
         $sortingForm->handleRequest($request);
-
          if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
-             // data is an array with "name", "email", and "message" keys
-             $sortingKey = $sortingForm->getData();
-             dump($sortingKey);
+             //Get the path object returned by the form input of name sort
+             $sortingPath = $sortingForm->getData()["sort"];
+             $modules = $em->getRepository('CoreBundle:Module')->findBy(
+               ["path" => $sortingPath->getId()]
+             );
          }
-
-        $modules = $em->getRepository('CoreBundle:Module')->findAll();
+         else {
+             $modules = $em->getRepository('CoreBundle:Module')->findAll();
+         }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($modules, 'admin_module_delete');
 
