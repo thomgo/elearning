@@ -1,16 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends "CoreBundle::adminLayout.html.twig" %}
 
-{% block body %}
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout de parcours{% endblock %}
+
+{% block main %}
     <h1>Path creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Créer" />
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('admin_path_index') }}">Back to the list</a>
+            <a href="{{ path('admin_path_index') }}">Retour à la liste des parcours</a>
         </li>
     </ul>
 {% endblock %}

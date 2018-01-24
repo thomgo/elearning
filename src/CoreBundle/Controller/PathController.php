@@ -56,7 +56,7 @@ class PathController extends Controller
             return $this->redirectToRoute('admin_path_show', array('id' => $path->getId()));
         }
 
-        return $this->render('path/new.html.twig', array(
+        return $this->render('CoreBundle:Admin/Path:new.html.twig', array(
             'path' => $path,
             'form' => $form->createView(),
         ));
@@ -72,7 +72,7 @@ class PathController extends Controller
     {
         $deleteForm = $this->createDeleteForm($path);
 
-        return $this->render('path/show.html.twig', array(
+        return $this->render('CoreBundle:Admin/Path:show.html.twig', array(
             'path' => $path,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -96,7 +96,7 @@ class PathController extends Controller
             return $this->redirectToRoute('admin_path_edit', array('id' => $path->getId()));
         }
 
-        return $this->render('path/edit.html.twig', array(
+        return $this->render('CoreBundle:Admin/Path:edit.html.twig', array(
             'path' => $path,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

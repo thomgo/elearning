@@ -1,20 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends "CoreBundle::adminLayout.html.twig" %}
 
-{% block body %}
-    <h1>Path edit</h1>
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+
+    <h1>Modification du parcours</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Modifier" />
     {{ form_end(edit_form) }}
 
     <ul>
         <li>
-            <a href="{{ path('admin_path_index') }}">Back to the list</a>
+            <a href="{{ path('admin_path_index') }}">Retour à la liste des parcours</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>
