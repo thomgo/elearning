@@ -5,6 +5,7 @@ namespace CoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ModuleType extends AbstractType
 {
@@ -13,9 +14,16 @@ class ModuleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('duration')->add('difficulty');
+        $builder->add('title')
+                ->add('duration')
+                ->add('difficulty')
+                ->add('path', EntityType::class, [
+                  'class'=> 'CoreBundle:Path',
+                  'choice_label'=> 'title',
+                  "expanded" => true,
+                ]);;
     }
-    
+
     /**
      * {@inheritdoc}
      */
