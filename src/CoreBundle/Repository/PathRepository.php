@@ -10,4 +10,13 @@ namespace CoreBundle\Repository;
  */
 class PathRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function getPathTitles() {
+    $names = $this->createQueryBuilder('p')
+                  ->select('p.title');
+    $names = $names->getQuery()->getResult();
+
+    return array_column($names, 'title');
+  }
+
 }

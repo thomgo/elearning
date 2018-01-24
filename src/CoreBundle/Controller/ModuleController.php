@@ -25,14 +25,17 @@ class ModuleController extends Controller
     public function indexAction(DeleteFormGenerator $DeleteFormGenerator , Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $choices = ["test1", "test2", "test3", "test4"];
-        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$choices]);
+
+        $pathNames = $em->getRepository("CoreBundle:Path")->getPathTitles();
+
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$pathNames]);
 
         $sortingForm->handleRequest($request);
 
          if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
              // data is an array with "name", "email", and "message" keys
              $sortingKey = $sortingForm->getData();
+             dump($sortingKey);
          }
 
         $modules = $em->getRepository('CoreBundle:Module')->findAll();
