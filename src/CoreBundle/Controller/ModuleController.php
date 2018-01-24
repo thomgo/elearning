@@ -5,7 +5,9 @@ namespace CoreBundle\Controller;
 use CoreBundle\Entity\Module;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use CoreBundle\Service\DeleteFormGenerator;
 
 /**
  * Module controller.
@@ -20,14 +22,17 @@ class ModuleController extends Controller
      * @Route("/", name="admin_module_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
         $em = $this->getDoctrine()->getManager();
 
         $modules = $em->getRepository('CoreBundle:Module')->findAll();
 
-        return $this->render('module/index.html.twig', array(
+        $deleteForm = $DeleteFormGenerator->generateDeleteForms($modules, 'admin_module_delete');
+
+        return $this->render('CoreBundle:Admin/Module:index.html.twig', array(
             'modules' => $modules,
+            'delete_form'=>$deleteForm
         ));
     }
 
@@ -51,7 +56,7 @@ class ModuleController extends Controller
             return $this->redirectToRoute('admin_module_show', array('id' => $module->getId()));
         }
 
-        return $this->render('module/new.html.twig', array(
+        return $this->render('CoreBundle:Admin/Module:new.html.twig', array(
             'module' => $module,
             'form' => $form->createView(),
         ));
@@ -67,7 +72,7 @@ class ModuleController extends Controller
     {
         $deleteForm = $this->createDeleteForm($module);
 
-        return $this->render('module/show.html.twig', array(
+        return $this->render('CoreBundle:Admin/Module:show.html.twig', array(
             'module' => $module,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +96,7 @@ class ModuleController extends Controller
             return $this->redirectToRoute('admin_module_edit', array('id' => $module->getId()));
         }
 
-        return $this->render('module/edit.html.twig', array(
+        return $this->render('CoreBundle:Admin/Module:edit.html.twig', array(
             'module' => $module,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

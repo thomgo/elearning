@@ -1,7 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends "CoreBundle::adminLayout.html.twig" %}
 
-{% block body %}
-    <h1>Module</h1>
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+    <h2>Détails du module</h2>
 
     <table>
         <tbody>
@@ -26,14 +29,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_module_index') }}">Back to the list</a>
+            <a href="{{ path('admin_module_index') }}">Retour à la liste des modules</a>
         </li>
         <li>
-            <a href="{{ path('admin_module_edit', { 'id': module.id }) }}">Edit</a>
+            <a href="{{ path('admin_module_edit', { 'id': module.id }) }}">Modifier</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>

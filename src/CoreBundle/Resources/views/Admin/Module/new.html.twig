@@ -1,10 +1,10 @@
 {% extends "CoreBundle::adminLayout.html.twig" %}
 
 {# rewrite the sub_title block to tell the visitor where he is #}
-{% block sub_title %}{{ parent()}} Administration - Ajout de parcours{% endblock %}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
 
 {% block main %}
-    <h2>Path creation</h2>
+    <h1>Créer un module</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -13,7 +13,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_path_index') }}">Retour à la liste des parcours</a>
+            <a href="{{ path('admin_module_index') }}">Retour à la liste des modules</a>
         </li>
     </ul>
 {% endblock %}

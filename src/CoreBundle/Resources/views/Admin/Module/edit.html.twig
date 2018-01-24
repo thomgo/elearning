@@ -4,8 +4,7 @@
 {% block sub_title %}{{ parent()}} Administration{% endblock %}
 
 {% block main %}
-
-    <h2>Modification du parcours</h2>
+    <h2>Modifier le module</h2>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -14,7 +13,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('admin_path_index') }}">Retour à la liste des parcours</a>
+            <a href="{{ path('admin_module_index') }}">Retour à la liste des modules</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
