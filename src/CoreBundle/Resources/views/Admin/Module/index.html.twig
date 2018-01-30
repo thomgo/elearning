@@ -16,8 +16,9 @@
       <thead>
           <tr>
               <th>Id</th>
-              <th>Title</th>
-              <th>Difficulty</th>
+              <th>Titre</th>
+              <th>Difficulté</th>
+              <th>Parcours</th>
               <th>Actions</th>
           </tr>
       </thead>
@@ -27,6 +28,7 @@
               <td>{{ module.id }}</td>
               <td>{{ module.title }}</td>
               <td>{{ module.difficulty }}</td>
+              <td>{{ module.path.title }}</td>
               <td class="adminActions">
                 {{ form_start(delete_form[loop.index0]) }}
                     <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
