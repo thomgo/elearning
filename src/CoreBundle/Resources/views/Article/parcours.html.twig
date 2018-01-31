@@ -17,7 +17,7 @@
           <div>
             <span> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ path.duration }}H | </span>
             <span> <i class="fa fa-puzzle-piece" aria-hidden="true"></i> Modules : {{ path.modules.count }} | </span>
-            <span class="float-right">Démarrer</span>
+            <span class="float-right"><a href="{{ path('modules', {"pathTitle": path.title})}}">Démarrer</a></span>
           </div>
         </div>
       </article>

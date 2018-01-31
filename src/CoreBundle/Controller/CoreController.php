@@ -78,4 +78,23 @@ class CoreController extends Controller
 
       return $this->render('CoreBundle:Article:parcours.html.twig', ["paths" => $paths]);
     }
+
+    /**
+     * @Route("{pathTitle}/modules", name ="modules")
+     */
+    public function modulesAction($pathTitle)
+    {
+      $em  = $this->getDoctrine()->getManager();
+      $modulesRepository = $em->getRepository('CoreBundle:Module');
+
+      $pathRepository = $em->getRepository('CoreBundle:Path');
+      $path = $pathRepository->findOneBy(["title"=>$pathTitle]);
+
+      $modules = $modulesRepository->findBy(["path" => $path->getId()]);
+
+      return $this->render('CoreBundle:Article:modules.html.twig', [
+        "modules" => $modules,
+        "path" => $path
+      ]);
+    }
 }
