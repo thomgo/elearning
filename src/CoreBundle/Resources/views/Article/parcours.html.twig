@@ -1,0 +1,20 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Parcours{% endblock %}
+
+{% block main %}
+  {% for path in paths %}
+    <div class="col col-sm-6 col-lg-4">
+      <article class="square">
+        <div class="container">
+          <h2>{{ path.title }}</h2>
+          <p>{{ path.description }}</p>
+          <div>
+            <span>{{ path.duration }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  {% endfor %}
+{% endblock %}

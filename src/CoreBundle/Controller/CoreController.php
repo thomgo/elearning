@@ -65,4 +65,17 @@ class CoreController extends Controller
     {
       return $this->render('CoreBundle:Admin:adminIndex.html.twig');
     }
+
+    /**
+     * @Route("/parcours", name ="parcours")
+     */
+    public function parcoursAction()
+    {
+      $em  = $this->getDoctrine()->getManager();
+      $pathRepository = $em->getRepository('CoreBundle:Path');
+
+      $paths = $pathRepository->getPathsWithModules();
+
+      return $this->render('CoreBundle:Article:parcours.html.twig', ["paths" => $paths]);
+    }
 }

@@ -10,5 +10,13 @@ namespace CoreBundle\Repository;
  */
 class PathRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getPathsWithModules() {
+    $paths = $this->createQueryBuilder('p')
+    ->leftJoin("p.modules", "mod")
+    ->addSelect("mod")
+    ->getQuery()
+    ->getResult();
 
+    return $paths;
+  }
 }
