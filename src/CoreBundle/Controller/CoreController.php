@@ -5,6 +5,8 @@ namespace CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use CoreBundle\Entity\Path;
 
 class CoreController extends Controller
 {
@@ -80,15 +82,13 @@ class CoreController extends Controller
     }
 
     /**
-     * @Route("{pathTitle}/modules", name ="modules")
+     * @Route("{title}/modules", name ="modules")
+     * @ParamConverter("path", class="CoreBundle:Path")
      */
-    public function modulesAction($pathTitle)
+    public function modulesAction(Path $path)
     {
       $em  = $this->getDoctrine()->getManager();
       $modulesRepository = $em->getRepository('CoreBundle:Module');
-
-      $pathRepository = $em->getRepository('CoreBundle:Path');
-      $path = $pathRepository->findOneBy(["title"=>$pathTitle]);
 
       $modules = $modulesRepository->findBy(["path" => $path->getId()]);
 
