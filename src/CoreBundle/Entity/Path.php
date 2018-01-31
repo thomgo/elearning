@@ -48,6 +48,8 @@ class Path
     */
     private $modules;
 
+    private $modulesCount;
+
 
     public function __construct() {
       $this->modules = new ArrayCollection;
@@ -159,4 +161,12 @@ class Path
       $module->setPath(null);
     }
 
+
+    public function setModulesCount($count) {
+      $this->modulesCount = $count;
+    }
+
+    public function getModulesCount() {
+      return $this->modulesCount;
+    }
 }

@@ -39,6 +39,25 @@
   color: white;
 }
 
+/*Paths style*/
+
+.square {
+
+}
+
+.pathTitle {
+  font-size: 1.5em;
+}
+
+.descriptionContainer {
+  height: 120px;
+  overflow: hidden;
+}
+
+.pathDescription {
+  font-size: .9em;
+}
+
 /*Admin style*/
 
 .adminActions {
