@@ -49,6 +49,14 @@ class Module
     */
     private $path;
 
+    /**
+    *@ORM\OneToMany(targetEntity="CoreBundle\Entity\Article", mappedBy="module")
+    */
+    private $articles;
+
+    public function __construct() {
+      $this->articles = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -146,5 +154,27 @@ class Module
 
     public function getPath() {
       return $this->path;
+    }
+
+    /**
+    * @return Collection|Articles[]
+    */
+    public function getArticles() {
+      return $this->articles;
+    }
+
+    public function addArticle(Article $article) {
+      if($this->articles>contains($article)) {
+        return;
+      }
+
+      $this->articles[] = $article;
+
+      $article->setModule($this);
+    }
+
+    public function removeArticle(Article $article) {
+      $this->articles->removeElement($article);
+      $article->setModule(null);
     }
 }

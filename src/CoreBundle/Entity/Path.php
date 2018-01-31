@@ -48,8 +48,6 @@ class Path
     */
     private $modules;
 
-    private $modulesCount;
-
 
     public function __construct() {
       $this->modules = new ArrayCollection;
@@ -159,14 +157,5 @@ class Path
     public function removeModule(Module $module) {
       $this->modules->removeElement($module);
       $module->setPath(null);
-    }
-
-
-    public function setModulesCount($count) {
-      $this->modulesCount = $count;
-    }
-
-    public function getModulesCount() {
-      return $this->modulesCount;
     }
 }

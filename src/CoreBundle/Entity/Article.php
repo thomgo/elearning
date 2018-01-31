@@ -53,6 +53,12 @@ class Article
      */
     private $categories;
 
+    /**
+     *@ORM\ManyToOne(targetEntity="CoreBundle\Entity\Module", inversedBy="articles")
+     *@ORM\JoinColumn(nullable=true)
+    */
+    private $module;
+
     public function __construct()
     {
         $this->date = new \Datetime();
@@ -201,6 +207,22 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set module
+    */
+
+    public function setModule(Module $module = null) {
+      $this->module = $module;
+    }
+
+    /**
+    * Get Module
+    */
+
+    public function getModule() {
+      return $this->module;
     }
 
 }
