@@ -42,7 +42,7 @@
 /*Paths style*/
 
 .square {
-
+  min-height: 200px;
 }
 
 .pathTitle {
