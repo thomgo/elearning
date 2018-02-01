@@ -5,6 +5,7 @@ namespace CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use CoreBundle\Entity\Path;
 use CoreBundle\Entity\Module;
@@ -103,8 +104,11 @@ class CoreController extends Controller
      * @Route("{title}/articles", name ="moduleArticles")
      * @ParamConverter("module", class="CoreBundle:Module")
      */
-    public function moduleArticle(Module $module)
+    public function moduleArticles(Module $module, Request $request)
     {
+      //get the previous page for the back link in  view
+      $referer = $request->headers->get('referer');
+
       $em  = $this->getDoctrine()->getManager();
       $articlesRepository = $em->getRepository('CoreBundle:Article');
 
@@ -112,7 +116,8 @@ class CoreController extends Controller
 
       return $this->render('CoreBundle:Article:moduleArticles.html.twig', [
         "module" => $module,
-        "articles" => $articles
+        "articles" => $articles,
+        "previous_page" => $referer
       ]);
     }
 }
