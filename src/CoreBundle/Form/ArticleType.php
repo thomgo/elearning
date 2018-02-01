@@ -27,6 +27,10 @@ class ArticleType extends AbstractType
           'choice_label'=> 'name',
           'multiple' => true,
           "expanded" => true,
+        ])
+        ->add('module', EntityType::class, [
+          'class'=> 'CoreBundle:Module',
+          'choice_label'=> 'title',
         ]);
     }
 
