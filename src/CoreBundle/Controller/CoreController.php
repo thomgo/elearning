@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use CoreBundle\Entity\Path;
+use CoreBundle\Entity\Module;
 
 class CoreController extends Controller
 {
@@ -95,6 +96,23 @@ class CoreController extends Controller
       return $this->render('CoreBundle:Article:modules.html.twig', [
         "modules" => $modules,
         "path" => $path
+      ]);
+    }
+
+    /**
+     * @Route("{title}/articles", name ="moduleArticles")
+     * @ParamConverter("module", class="CoreBundle:Module")
+     */
+    public function moduleArticle(Module $module)
+    {
+      $em  = $this->getDoctrine()->getManager();
+      $articlesRepository = $em->getRepository('CoreBundle:Article');
+
+      $articles = $articlesRepository->getArticlesImagesByModule($module->getId());
+
+      return $this->render('CoreBundle:Article:moduleArticles.html.twig', [
+        "module" => $module,
+        "articles" => $articles
       ]);
     }
 }
