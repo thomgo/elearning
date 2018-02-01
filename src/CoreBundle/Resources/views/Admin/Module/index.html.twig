@@ -1,0 +1,45 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+
+  <a href="{{ path('admin_module_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+
+  {{ form_start(sorting_form) }}
+      {{ form_widget(sorting_form) }}
+      <input type="submit" value="Trier" />
+  {{ form_end(sorting_form) }}
+
+  <table class="table table-striped mt-3">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Titre</th>
+              <th>Difficulté</th>
+              <th>Parcours</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+      {% for module in modules %}
+          <tr>
+              <td>{{ module.id }}</td>
+              <td>{{ module.title }}</td>
+              <td>{{ module.difficulty }}</td>
+              <td>{{ module.path.title }}</td>
+              <td class="adminActions">
+                {{ form_start(delete_form[loop.index0]) }}
+                    <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                {{ form_end(delete_form[loop.index0]) }}
+
+                <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('admin_module_show', {"id" : module.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                <a class="btn darkBlue tWhite mx-1" href="{{ path('admin_module_edit', {"id" : module.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+              </td>
+          </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+
+{% endblock %}
