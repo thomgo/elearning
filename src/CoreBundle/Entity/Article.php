@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Article
@@ -51,6 +52,18 @@ class Article
      *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\Category", inversedBy="articles", cascade={"persist"})
      */
     private $categories;
+
+    /**
+     *@ORM\ManyToOne(targetEntity="CoreBundle\Entity\Module", inversedBy="articles")
+     *@ORM\JoinColumn(nullable=true)
+    */
+    private $module;
+
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+        $this->categories = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -160,14 +173,6 @@ class Article
     }
 
 
-
-    public function __construct()
-    {
-        $this->date = new \Datetime();
-        $this->categories = new ArrayCollection;
-    }
-
-
     /**
      * Add category
      *
@@ -202,6 +207,22 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set module
+    */
+
+    public function setModule(Module $module = null) {
+      $this->module = $module;
+    }
+
+    /**
+    * Get Module
+    */
+
+    public function getModule() {
+      return $this->module;
     }
 
 }

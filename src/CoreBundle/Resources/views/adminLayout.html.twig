@@ -45,13 +45,19 @@
       <div class="col-4">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('adminView', {"entity": "Article"}) }}">Articles</a>
+            <a class="nav-link" href="{{ path('admin_article_index') }}">Articles</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('adminView', {"entity": "User"}) }}">Utilisateurs</a>
+            <a class="nav-link">Utilisateurs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('adminView', {"entity": "Category"}) }}">Categories</a>
+            <a class="nav-link" href="{{ path('category_index') }}">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_path_index') }}">Parcours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_module_index') }}">Modules</a>
           </li>
         </ul>
       </div>

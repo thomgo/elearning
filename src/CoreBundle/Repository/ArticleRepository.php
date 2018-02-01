@@ -10,4 +10,17 @@ namespace CoreBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getArticlesImagesAndCategories() {
+    $articles = $this->createQueryBuilder('a')
+    ->orderBy("a.id", "DESC")
+    ->setMaxResults(5)
+    ->leftJoin("a.image", "img")
+    ->addSelect("img")
+    ->leftJoin("a.categories", "cat")
+    ->addSelect("cat")
+    ->getQuery()
+    ->getResult();
+
+    return $articles;
+  }
 }

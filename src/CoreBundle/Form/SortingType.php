@@ -7,15 +7,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class CategoryType extends AbstractType
+class SortingType extends AbstractType
 {
+
+    private $sortingChoices;
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class);
+        $builder->add('sort', ChoiceType::class, [
+        'choices'  => $options['choices'],
+        'choice_label' => function ($value, $key, $index) {
+          return $value->getTitle();
+        }
+        ]);
     }
 
     /**
@@ -23,18 +32,10 @@ class CategoryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        //Add a choices index to $option
         $resolver->setDefaults(array(
-            'data_class' => 'CoreBundle\Entity\Category'
+            'choices'=>null
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'corebundle_category';
-    }
-
 
 }

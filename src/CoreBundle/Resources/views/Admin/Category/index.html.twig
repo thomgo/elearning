@@ -1,0 +1,34 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+  <a href="{{ path('category_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Nom</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+          <tr>
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.name }}</td>
+            <td class="adminActions">
+              {{ form_start(delete_form[loop.index0]) }}
+                  <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              {{ form_end(delete_form[loop.index0]) }}
+
+              <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('category_show', {"id" : category.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+              <a class="btn darkBlue tWhite mx-1" href="{{ path('category_edit', {"id" : category.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

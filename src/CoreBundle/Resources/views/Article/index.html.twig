@@ -14,7 +14,9 @@
     {% for article in articles %}
     <div class="col col-sm-6 col-lg-4">
       <div class="card my-3">
-        <img class="card-img-top img-fluid" src="{% if article.image.path is defined %} {{ asset(article.image.fullPath) }} {% endif %}" alt="Card image cap">
+        {% if article.image.path is defined %}
+        <img class="card-img-top img-fluid" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
+        {% endif %}
         <div class="card-block">
           <h4 class="card-title">{{ article.title }} || {{ article.date|date('d-m-Y') }}</h4>
           <p>

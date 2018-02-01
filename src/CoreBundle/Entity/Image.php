@@ -3,12 +3,15 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 /**
  * Image
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Image
 {
@@ -48,6 +51,10 @@ class Image
      * @ORM\Column(name="weight", type="bigint")
      */
     private $weight;
+
+    private $file;
+
+    private $tempFileName;
 
 
     /**
@@ -146,6 +153,8 @@ class Image
         return $this;
     }
 
+
+
     /**
      * Get weight
      *
@@ -163,6 +172,98 @@ class Image
      */
     public function getFullPath()
     {
-        return $this->path . $this->name;
+        return $this->path . $this->id . $this->name;
+    }
+
+
+    public function setFile(UploadedFile $file = null)
+    {
+      $this->file = $file;
+      //If there is already an image store the server name
+      if(isset($this->name)) {
+        $this->tempFileName = $this->id . $this->name;
+        $this->name = null;
+        $this->weight = null;
+        $this->path = null;
+      }
+    }
+
+    /**
+     * Get file
+     *
+     * @return UploadedFile
+     */
+
+    public function getFile()
+    {
+      return $this->file;
+    }
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload() {
+      if($this->file === null) {
+        return;
+      }
+
+      //get the name of the uploaded file
+      $name = $this->file->getClientOriginalName();
+      $this->setName($name);
+
+      //get the weight of the uploaded file
+      $weight = $this->file->getClientSize();
+      $this->setWeight($weight);
+
+      //Set default path as img/
+      $this->setPath("img/");
+
+    }
+
+
+  /**
+   * @ORM\PostPersist()
+   * @ORM\PostUpdate()
+   */
+
+    public function upload() {
+      if($this->file === null) {
+        return;
+      }
+      //If there was an older file delete it from the server
+      if(isset($this->tempFileName)) {
+        unlink($this->getUploadRootDir(). "/" . $this->tempFileName);
+      }
+
+      //Store the new file on the server
+      $name = $this->id . $this->name;
+      $this->file->move($this->getUploadRootDir(), $name);
+
+    }
+
+
+  /**
+   * @ORM\PreRemove()
+   */
+
+   public function preRemoveUpload() {
+     $this->tempFileName = $this->id . $this->name;
+   }
+
+   /**
+    * @ORM\PostRemove()
+    */
+
+    public function postRemoveUpload() {
+      if(isset($this->tempFileName)) {
+        unlink($this->getUploadRootDir(). "/" . $this->tempFileName);
+      }
+    }
+
+    protected function getUploadRootDir()
+    {
+      return __DIR__.'/../../../web/img';
     }
 }

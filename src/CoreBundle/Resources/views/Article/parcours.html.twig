@@ -1,0 +1,28 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Parcours{% endblock %}
+
+{% block main %}
+<h2 class="mb-3">Parcours d'apprentissage disponibles</h2>
+<div class="row">
+  {% for path in paths %}
+    <div class="col col-sm-6 col-lg-4">
+      <article class="square lightBlue tWhite py-2 my-2">
+        <div class="container">
+          <h3 class="pathTitle text-center">{{ path.title }}</h3>
+          <div class="descriptionContainer">
+            <p class="pathDescription">{{ path.description }}</p>
+          </div>
+          <div>
+            <span> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ path.duration }}H | </span>
+            <span> <i class="fa fa-puzzle-piece" aria-hidden="true"></i> Modules : {{ path.modules.count }} | </span>
+            <span class="float-right"><a href="{{ path('modules', {"title": path.title})}}">Démarrer</a></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

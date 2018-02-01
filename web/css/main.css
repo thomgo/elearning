@@ -1,3 +1,9 @@
+/*
+
+~~~~~~~~ Basic color classes ~~~~~~~~~~~~
+
+*/
+
 .darkBlue{
   background-color: #2b4162;
 }
@@ -31,4 +37,34 @@
   border: none;
   background-color: #2b4162;
   color: white;
+}
+
+/*Paths style*/
+
+.square {
+  min-height: 200px;
+}
+
+.pathTitle {
+  font-size: 1.5em;
+}
+
+.descriptionContainer {
+  height: 120px;
+  overflow: hidden;
+}
+
+.pathDescription {
+  font-size: .9em;
+}
+
+/*Admin style*/
+
+.adminActions {
+  display: flex;
+}
+
+.form-current-img {
+  max-width: 320px;
+  max-height: 150px;
 }

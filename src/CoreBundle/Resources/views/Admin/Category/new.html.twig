@@ -1,0 +1,21 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout{% endblock %}
+
+{% block main %}
+
+  <h2>Ajout d'une catégorie</h2>
+
+  {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <input type="submit" value="Enregistrer" />
+  {{ form_end(form) }}
+
+  <ul>
+      <li>
+          <a href="{{ path('category_index') }}">Retour à la liste des categories</a>
+      </li>
+  </ul>
+
+{% endblock %}
