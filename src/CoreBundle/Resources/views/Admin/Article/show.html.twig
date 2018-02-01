@@ -17,6 +17,10 @@
                 <td>{% if article.date %}{{ article.date|date('d-m-Y') }}{% endif %}</td>
             </tr>
             <tr>
+              <th>Module : </th>
+              <td>{{ article.module.title }}</td>
+            </tr>
+            <tr>
                 <th>Image : </th>
                 <td>
                   {% if article.image.path is defined %}

@@ -29,6 +29,8 @@ class ArticleController extends Controller
         $query = $articleRepository->createQueryBuilder("a")
         ->leftjoin("a.categories", "ctg")
         ->addSelect("ctg")
+        ->leftjoin("a.module", "mod")
+        ->addSelect("mod")
         ->getQuery();
 
         $articles = $query->getResult();
