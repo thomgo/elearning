@@ -90,7 +90,7 @@ class CoreController extends Controller
       $em  = $this->getDoctrine()->getManager();
       $modulesRepository = $em->getRepository('CoreBundle:Module');
 
-      $modules = $modulesRepository->findBy(["path" => $path->getId()]);
+      $modules = $modulesRepository->getModulesWithArticles($path->getId());
 
       return $this->render('CoreBundle:Article:modules.html.twig', [
         "modules" => $modules,

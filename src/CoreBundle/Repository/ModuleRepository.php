@@ -10,4 +10,14 @@ namespace CoreBundle\Repository;
  */
 class ModuleRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getModulesWithArticles($pathId) {
+    $modules = $this->createQueryBuilder('m')
+    ->where("m.path = " . $pathId)
+    ->leftJoin("m.articles", "art")
+    ->addSelect("art")
+    ->getQuery()
+    ->getResult();
+
+    return $modules;
+  }
 }
