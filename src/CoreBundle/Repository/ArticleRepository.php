@@ -26,7 +26,8 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
   public function getArticlesImagesByModule($module) {
     $articles = $this->createQueryBuilder('a')
-    ->where("a.module = " . $module)
+    ->where("a.module = :module")
+    ->setParameter('module', $module)
     ->leftJoin("a.image", "img")
     ->addSelect("img")
     ->leftJoin("a.categories", "cat")

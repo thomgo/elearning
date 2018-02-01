@@ -12,7 +12,8 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
 {
   public function getModulesWithArticles($pathId) {
     $modules = $this->createQueryBuilder('m')
-    ->where("m.path = " . $pathId)
+    ->where("m.path = :pathId")
+    ->setParameter('pathId', $pathId)
     ->leftJoin("m.articles", "art")
     ->addSelect("art")
     ->getQuery()
