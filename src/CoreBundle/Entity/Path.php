@@ -44,6 +44,13 @@ class Path
     private $description;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="order", type="integer", nullable=true)
+     */
+    private $order;
+
+    /**
     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\Module", mappedBy="path")
     */
     private $modules;
@@ -134,6 +141,30 @@ class Path
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return Path
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get duration
+     *
+     * @return int
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 
 
