@@ -102,6 +102,9 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if($article->getImage() !== null) {
+              $this->getDoctrine()->getManager()->persist($article->getImage());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_article_edit', array('id' => $article->getId()));
