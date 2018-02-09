@@ -26,7 +26,8 @@ class PathController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $paths = $em->getRepository('CoreBundle:Path')->findAll();
+        $paths = $em->getRepository('CoreBundle:Path')->findBy([], ["order"=>"ASC"]);
+        dump($paths);
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($paths, 'admin_path_delete');
 
