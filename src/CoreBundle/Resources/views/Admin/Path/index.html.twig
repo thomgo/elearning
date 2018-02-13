@@ -18,7 +18,7 @@
         {% for path in paths %}
             <tr class="sortableItem">
                 <td>{{ path.id }}</td>
-                <td class="ajaxRequest">{{ path.title }}</td>
+                <td class="trTitle">{{ path.title }}</td>
                 <td>{{ path.description }}</td>
                 <td class="adminActions">
                   {{ form_start(delete_form[loop.index0]) }}
