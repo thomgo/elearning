@@ -20,7 +20,7 @@ class PathController extends Controller
      * Lists all path entities.
      *
      * @Route("/", name="admin_path_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
