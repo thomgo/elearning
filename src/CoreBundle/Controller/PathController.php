@@ -22,12 +22,18 @@ class PathController extends Controller
      * @Route("/", name="admin_path_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+      $em = $this->getDoctrine()->getManager();
+      $pathRepo = $em->getRepository('CoreBundle:Path');
 
-        $paths = $em->getRepository('CoreBundle:Path')->findBy([], ["order"=>"ASC"]);
-        dump($paths);
+      if($request->isXmlHttpRequest()) {
+        $path = $pathRepo->find(2);
+        $path->setTitle("intégrateur bitch !");
+        $em->flush();
+      }
+
+        $paths = $pathRepo->findBy([], ["order"=>"ASC"]);
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($paths, 'admin_path_delete');
 
