@@ -28,12 +28,16 @@ class PathController extends Controller
       $pathRepo = $em->getRepository('CoreBundle:Path');
 
       if($request->isXmlHttpRequest()) {
-        $path = $pathRepo->find(2);
-        $path->setTitle("intégrateur bitch !");
+        $newOrder = $request->request->get('order');
+
+        $paths = $pathRepo->findBy(["title"=>$newOrder]);
+        foreach ($paths as $path) {
+          $path->setDispatch(array_search($path->getTitle(), $newOrder));
+        }
         $em->flush();
       }
 
-        $paths = $pathRepo->findBy([], ["order"=>"ASC"]);
+        $paths = $pathRepo->findBy([], ["dispatch"=>"ASC"]);
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($paths, 'admin_path_delete');
 

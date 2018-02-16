@@ -8,12 +8,11 @@ $( "#sortable" ).disableSelection();
 function Dropped() {
   //Get the order of the elements
   var trElements = document.getElementsByClassName("sortableItem");
-  var elementsPosition = [];
+  var elementsPosition = {};
   for (var i = 0; i < trElements.length; i++) {
-    var positionAndTrTitle = [i, trElements[i].children[1].innerHTML];
-    elementsPosition.push(positionAndTrTitle);
+    elementsPosition[i] = trElements[i].children[1].innerHTML;
   }
-  elementsPosition = elementsPosition.toString();
+  //elementsPosition = elementsPosition.toString();
 
   //Start an ajax request to send the order to the controller
   $.ajax({

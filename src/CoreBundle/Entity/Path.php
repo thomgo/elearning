@@ -46,9 +46,9 @@ class Path
     /**
      * @var int
      *
-     * @ORM\Column(name="order", type="integer", nullable=true)
+     * @ORM\Column(name="dispatch", type="integer", nullable=true)
      */
-    private $order;
+    private $dispatch;
 
     /**
     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\Module", mappedBy="path")
@@ -144,15 +144,15 @@ class Path
     }
 
     /**
-     * Set order
+     * Set dispatch
      *
-     * @param integer $order
+     * @param integer $dispatch
      *
      * @return Path
      */
-    public function setOrder($order)
+    public function setDispatch($dispatch)
     {
-        $this->order = $order;
+        $this->dispatch = $dispatch;
 
         return $this;
     }
@@ -162,9 +162,9 @@ class Path
      *
      * @return int
      */
-    public function getOrder()
+    public function getDispatch()
     {
-        return $this->order;
+        return $this->dispatch;
     }
 
 

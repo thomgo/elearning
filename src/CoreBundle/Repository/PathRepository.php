@@ -12,7 +12,7 @@ class PathRepository extends \Doctrine\ORM\EntityRepository
 {
   public function getPathsWithModules() {
     $paths = $this->createQueryBuilder('p')
-    ->orderBy('p.order', 'ASC')
+    ->orderBy('p.dispatch', 'ASC')
     ->leftJoin("p.modules", "mod")
     ->addSelect("mod")
     ->getQuery()
