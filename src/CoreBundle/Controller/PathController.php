@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Service\DeleteFormGenerator;
+use CoreBundle\Service\OrderEntities;
 
 /**
  * Path controller.
