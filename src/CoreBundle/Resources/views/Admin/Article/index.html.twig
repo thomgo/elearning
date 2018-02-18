@@ -11,6 +11,7 @@
           <th>id</th>
           <th>Titre</th>
           <th>Date</th>
+          <th>Module</th>
           <th>categories</th>
           <th>Actions</th>
         </tr>
@@ -21,6 +22,7 @@
               <th scope="row">{{ article.id }}</th>
               <td>{{ article.title }}</td>
               <td> {% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>
+              <td>{% if article.module %} {{ article.module.title }}{% endif %}</td>
               <td>
                 {% for category in article.categories %}
                   {{ category.name }}

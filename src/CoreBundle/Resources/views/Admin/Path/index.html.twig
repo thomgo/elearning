@@ -14,11 +14,11 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="sortable">
         {% for path in paths %}
-            <tr>
+            <tr class="sortableItem">
                 <td>{{ path.id }}</td>
-                <td>{{ path.title }}</td>
+                <td class="trTitle">{{ path.title }}</td>
                 <td>{{ path.description }}</td>
                 <td class="adminActions">
                   {{ form_start(delete_form[loop.index0]) }}
