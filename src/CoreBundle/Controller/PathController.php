@@ -23,18 +23,14 @@ class PathController extends Controller
      * @Route("/", name="admin_path_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request, OrderEntities $orderEntities)
     {
       $em = $this->getDoctrine()->getManager();
       $pathRepo = $em->getRepository('CoreBundle:Path');
 
+      //Reorder the path with the ajax request
       if($request->isXmlHttpRequest()) {
-        $newOrder = $request->request->get('order');
-
-        $paths = $pathRepo->findBy(["title"=>$newOrder]);
-        foreach ($paths as $path) {
-          $path->setDispatch(array_search($path->getTitle(), $newOrder));
-        }
+        $paths = $orderEntities->order($pathRepo, "title");
         $em->flush();
       }
 
