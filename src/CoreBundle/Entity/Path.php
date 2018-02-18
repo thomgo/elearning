@@ -46,7 +46,7 @@ class Path
     /**
      * @var int
      *
-     * @ORM\Column(name="dispatch", type="integer", nullable=true)
+     * @ORM\Column(name="dispatch", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $dispatch;
