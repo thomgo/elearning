@@ -26,6 +26,10 @@ class ArticleController extends Controller
 
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
+        //Get all the modules and pass it to the sorting form
+        $modules = $em->getRepository("CoreBundle:Module")->findAll();
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$modules]);
+
         $query = $articleRepository->createQueryBuilder("a")
         ->leftjoin("a.categories", "ctg")
         ->addSelect("ctg")
@@ -40,6 +44,7 @@ class ArticleController extends Controller
         return $this->render('CoreBundle:Admin/Article:index.html.twig', array(
             'articles' => $articles,
             'delete_form' => $deleteForm,
+            'sorting_form' => $sortingForm->createView()
         ));
     }
 

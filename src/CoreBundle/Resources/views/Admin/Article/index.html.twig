@@ -5,6 +5,12 @@
 
 {% block main %}
     <a href="{{ path('admin_article_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+
+    {{ form_start(sorting_form) }}
+        {{ form_widget(sorting_form) }}
+        <input type="submit" value="Trier" />
+    {{ form_end(sorting_form) }}
+
     <table class="table table-striped mt-3">
       <thead>
         <tr>
