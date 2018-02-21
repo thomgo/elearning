@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use CoreBundle\Entity\OrderableItem;
 
 /**
  * Module
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="module")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ModuleRepository")
  */
-class Module
+class Module extends OrderableItem
 {
 
     /**
