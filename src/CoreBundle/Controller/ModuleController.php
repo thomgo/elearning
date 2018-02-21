@@ -49,7 +49,7 @@ class ModuleController extends Controller
              );
          }
          else {
-             $modules = $moduleRepo->findBy([], ["dispatch"=>"ASC"]);
+             $modules = $moduleRepo->findBy([], ["id"=>"ASC"]);
          }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($modules, 'admin_module_delete');
