@@ -44,11 +44,12 @@ class ModuleController extends Controller
              //Get the path object returned by the form input of name sort
              $sortingPath = $sortingForm->getData()["sort"];
              $modules = $moduleRepo->findBy(
-               ["path" => $sortingPath->getId()]
+               ["path" => $sortingPath->getId()],
+               ["dispatch"=>"ASC"]
              );
          }
          else {
-             $modules = $moduleRepo->findAll();
+             $modules = $moduleRepo->findBy([], ["dispatch"=>"ASC"]);
          }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($modules, 'admin_module_delete');
