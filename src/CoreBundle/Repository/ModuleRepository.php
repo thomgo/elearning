@@ -14,6 +14,7 @@ class ModuleRepository extends \Doctrine\ORM\EntityRepository
     $modules = $this->createQueryBuilder('m')
     ->where("m.path = :pathId")
     ->setParameter('pathId', $pathId)
+    ->orderBy('m.dispatch', 'ASC')
     ->leftJoin("m.articles", "art")
     ->addSelect("art")
     ->getQuery()

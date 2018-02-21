@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use CoreBundle\Entity\OrderableItem;
 
 /**
  * Path
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="path")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\PathRepository")
  */
-class Path
+class Path extends OrderableItem
 {
     /**
      * @var int
@@ -42,13 +43,6 @@ class Path
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="dispatch", type="integer", nullable=true)
-     */
-    private $dispatch;
 
     /**
     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\Module", mappedBy="path")
@@ -142,31 +136,6 @@ class Path
     {
         return $this->description;
     }
-
-    /**
-     * Set dispatch
-     *
-     * @param integer $dispatch
-     *
-     * @return Path
-     */
-    public function setDispatch($dispatch)
-    {
-        $this->dispatch = $dispatch;
-
-        return $this;
-    }
-
-    /**
-     * Get duration
-     *
-     * @return int
-     */
-    public function getDispatch()
-    {
-        return $this->dispatch;
-    }
-
 
     /**
     * @return Collection|Modules[]
