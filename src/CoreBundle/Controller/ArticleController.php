@@ -30,14 +30,7 @@ class ArticleController extends Controller
         $modules = $em->getRepository("CoreBundle:Module")->findAll();
         $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$modules]);
 
-        $query = $articleRepository->createQueryBuilder("a")
-        ->leftjoin("a.categories", "ctg")
-        ->addSelect("ctg")
-        ->leftjoin("a.module", "mod")
-        ->addSelect("mod")
-        ->getQuery();
-
-        $articles = $query->getResult();
+        $articles = $articleRepository->getArticlesWithCategoryModules();
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($articles, 'admin_article_delete');
 

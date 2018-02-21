@@ -37,4 +37,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
     return $articles;
   }
+
+  public function getArticlesWithCategoryModules() {
+    $articles = $this->createQueryBuilder('a')
+    ->leftjoin("a.categories", "ctg")
+    ->addSelect("ctg")
+    ->leftjoin("a.module", "mod")
+    ->addSelect("mod")
+    ->getQuery()
+    ->getResult();
+
+    return $articles;
+
+  }
 }
