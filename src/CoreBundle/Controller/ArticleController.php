@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Service\DeleteFormGenerator;
+use CoreBundle\Service\OrderEntities;
 /**
  * Article controller.
  *
@@ -20,11 +21,16 @@ class ArticleController extends Controller
      * @Route("/", name="admin_article_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request, OrderEntities $orderEntities)
     {
         $em = $this->getDoctrine()->getManager();
-
         $articleRepository = $em->getRepository('CoreBundle:Article');
+
+        //Reorder the articles with the ajax request
+        if($request->isXmlHttpRequest()) {
+          $articles = $orderEntities->order($articleRepository, "title");
+          $em->flush();
+        }
 
         //Get all the modules and pass it to the sorting form
         $modules = $em->getRepository("CoreBundle:Module")->findAll();

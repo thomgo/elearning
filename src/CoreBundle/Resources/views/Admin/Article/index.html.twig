@@ -22,9 +22,9 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="sortable">
           {% for article in articles %}
-            <tr>
+            <tr class="sortableItem">
               <th scope="row">{{ article.id }}</th>
               <td>{{ article.title }}</td>
               <td> {% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>

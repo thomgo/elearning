@@ -28,6 +28,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     $articles = $this->createQueryBuilder('a')
     ->where("a.module = :module")
     ->setParameter('module', $module)
+    ->orderBy('a.dispatch', 'ASC')
     ->leftJoin("a.image", "img")
     ->addSelect("img")
     ->leftJoin("a.categories", "cat")
