@@ -10,6 +10,7 @@ namespace CoreBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+  //Function to get articles on the home page
   public function getArticlesImagesAndCategories() {
     $articles = $this->createQueryBuilder('a')
     ->orderBy("a.id", "DESC")
@@ -24,6 +25,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     return $articles;
   }
 
+  //Articles sorted by modules
   public function getArticlesImagesByModule($module) {
     $articles = $this->createQueryBuilder('a')
     ->where("a.module = :module")
@@ -38,7 +40,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
     return $articles;
   }
-
+  //Default request for the admin index article page
   public function getArticlesWithCategoryModules() {
     $articles = $this->createQueryBuilder('a')
     ->leftjoin("a.categories", "ctg")
