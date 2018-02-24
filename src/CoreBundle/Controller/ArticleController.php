@@ -18,9 +18,9 @@ class ArticleController extends Controller
      * Lists all article entities.
      *
      * @Route("/", name="admin_article_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -30,7 +30,15 @@ class ArticleController extends Controller
         $modules = $em->getRepository("CoreBundle:Module")->findAll();
         $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$modules]);
 
-        $articles = $articleRepository->getArticlesWithCategoryModules();
+        $sortingForm->handleRequest($request);
+         if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
+           //Get the module object returned by the form input of name sort
+           $sortingModule = $sortingForm->getData()["sort"];
+           $articles = $articleRepository->getArticlesImagesByModule($sortingModule);
+         }
+         else {
+          $articles = $articleRepository->getArticlesWithCategoryModules();
+         }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($articles, 'admin_article_delete');
 
