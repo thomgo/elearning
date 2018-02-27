@@ -18,10 +18,14 @@ class SortingType extends AbstractType
     {
       if($options['parentIndication']) {
         foreach ($options['choices'] as $entity) {
-          $choices[$entity->getTitle()] = $entity;
+          $subChoices = [];
+          foreach ($entity->getModules() as $otherEntity) {
+            $subChoices[$otherEntity->getTitle()] = $otherEntity;
+          }
+          $choices[$entity->getTitle()] = $subChoices;
         }
         $builder->add('sort', ChoiceType::class, [
-        'choices'  => $options['choices'],
+        'choices'  => $choices,
         ]);
       }
       else {
