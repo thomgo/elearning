@@ -33,7 +33,7 @@ class ArticleController extends Controller
         }
 
         //Get all the paths and pass it to the sorting form
-        $paths = $em->getRepository("CoreBundle:Path")->findAll();
+        $paths = $em->getRepository("CoreBundle:Path")->getPathsWithModules();
         $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$paths, 'parentIndication' => true]);
 
         $sortingForm->handleRequest($request);
