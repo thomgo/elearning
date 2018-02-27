@@ -34,7 +34,7 @@ class ArticleController extends Controller
 
         //Get all the modules and pass it to the sorting form
         $modules = $em->getRepository("CoreBundle:Module")->findAll();
-        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$modules]);
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$modules, 'parentIndication' => true]);
 
         $sortingForm->handleRequest($request);
          if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
