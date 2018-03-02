@@ -39,6 +39,12 @@
   color: white;
 }
 
+.singleImage {
+  float: left;
+  width: 400px;
+  margin-right: 1em;
+}
+
 /*Paths style*/
 
 .square {
