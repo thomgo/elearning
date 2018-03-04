@@ -5,9 +5,12 @@
 
 {% block main %}
 <div>
+  <!-- Article image -->
   {% if article.image.path is defined %}
   <img class="card-img-top img-fluid singleImage" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
   {% endif %}
+
+  <!-- Article information : title, category and links to path and module -->
   <h2> {{ article.title }}</h2>
   <p>publié le {{ article.date|date("d-md-Y")}},
     Catgéories :
@@ -18,6 +21,8 @@
   <p>
     Parcours : <a href="{{ path('modules', {'title': article.module.path.title})}}">{{ article.module.path.title }}</a> / Module : <a href="{{ path('moduleArticles',{'title': article.module.title} )}}">{{ article.module.title }}</a>
   </p>
+
+  <!-- Article main content -->
   <p>{{ article.content }}</p>
 </div>
 
