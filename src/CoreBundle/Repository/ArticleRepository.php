@@ -51,6 +51,21 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     ->getResult();
 
     return $articles;
+  }
 
+  public function getSingleArticle($id) {
+    $article = $this->createQueryBuilder('a')
+    ->where("a.id = :articleId")
+    ->setParameter('articleId', $id)
+    ->leftjoin("a.categories", "ctg")
+    ->addSelect("ctg")
+    ->leftjoin("a.module", "mod")
+    ->addSelect("mod")
+    ->leftjoin("mod.path", "pth")
+    ->addSelect("pth")
+    ->getQuery()
+    ->getResult();
+
+    return $article[0];
   }
 }

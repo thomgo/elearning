@@ -34,7 +34,8 @@ class CoreController extends Controller
         $em  = $this->getDoctrine()->getManager();
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
-        $article = $articleRepository->findOneById($id);
+        $article = $articleRepository->getSingleArticle($id);
+        dump($article);
 
         return $this->render('CoreBundle:Article:single.html.twig', ["article"=>$article]);
     }

@@ -4,7 +4,7 @@
 {% block sub_title %}{{ parent()}} Article détaillé{% endblock %}
 
 {% block main %}
-<div class="">
+<div>
   {% if article.image.path is defined %}
   <img class="card-img-top img-fluid singleImage" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
   {% endif %}
