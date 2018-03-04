@@ -9,7 +9,15 @@
   <img class="card-img-top img-fluid singleImage" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
   {% endif %}
   <h2> {{ article.title }}</h2>
-  <p>publié le {{ article.date|date("d-md-Y")}}</p>
+  <p>publié le {{ article.date|date("d-md-Y")}},
+    Catgéories :
+      {% for category in article.categories %}
+        <span>{{ category.name }}</span>
+      {% endfor %}
+  </p>
+  <p>
+    Parcours : <a href="{{ path('modules', {'title': article.module.path.title})}}">{{ article.module.path.title }}</a> / Module : <a href="{{ path('moduleArticles',{'title': article.module.title} )}}">{{ article.module.title }}</a>
+  </p>
   <p>{{ article.content }}</p>
 </div>
 
