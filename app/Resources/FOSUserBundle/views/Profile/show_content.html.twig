@@ -1,0 +1,15 @@
+<article>
+  <h3>Gestion du profile de : {{ user.username }}</h3>
+
+  <div>
+    <h4>Information personnelles</h4>
+    <p> Pseudo: {{ user.username }}</p>
+    <p> Email : {{ user.email }}</p>
+    <p> Age : {{ user.age }}</p>
+    {% if user.bio is defined %}
+    <p>Description : vous n'avez encore rien écrit</p>
+    {% else %}
+    <p>Desccription : {{user.bio }}</p>
+    {% endif %}
+  </div>
+</aticle>
