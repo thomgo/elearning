@@ -17,6 +17,10 @@ services:
         class: CoreBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+    app.form.profile:
+        class: CoreBundle\Form\ProfileType
+        tags:
+            - { name: form.type, alias: core_user_profile }
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

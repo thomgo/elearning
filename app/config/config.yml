@@ -82,3 +82,6 @@ fos_user:
     registration:
         form:
             type: CoreBundle\Form\RegistrationType
+    profile:
+        form:
+            type: CoreBundle\Form\ProfileType
