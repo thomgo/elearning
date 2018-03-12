@@ -7,10 +7,10 @@
     <p> Pseudo: {{ user.username }}</p>
     <p> Email : {{ user.email }}</p>
     <p> Age : {{ user.age }}</p>
-    {% if user.bio is defined %}
-    <p>Description : {{user.bio }}</p>
-    {% else %}
+    {% if user.bio is empty %}
     <p>Description : vous n'avez encore rien écrit</p>
+    {% else %}
+    <p>Description : {{user.bio }}</p>
     {% endif %}
   </div>
 </aticle>
