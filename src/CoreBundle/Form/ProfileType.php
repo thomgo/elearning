@@ -11,7 +11,8 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('age')
-        ->add('bio');
+        ->add('bio')
+        ->remove('current_password');
     }
 
     public function getParent()
