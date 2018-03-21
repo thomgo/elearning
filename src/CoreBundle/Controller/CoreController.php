@@ -66,6 +66,8 @@ class CoreController extends Controller
      */
     public function parcoursAction()
     {
+      $startPathType = $this->createForm('CoreBundle\Form\StartPathType', null, ["index" => 0]);
+
       $em  = $this->getDoctrine()->getManager();
       $pathRepository = $em->getRepository('CoreBundle:Path');
 
