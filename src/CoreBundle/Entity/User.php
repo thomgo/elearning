@@ -33,10 +33,15 @@ class User extends BaseUser
      */
     private $age;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="CoreBundle\Entity\Path", inversedBy="users", cascade={"persist"})
+    **/
+    private $paths;
+
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->paths = new ArrayCollection();
     }
 
     /**
@@ -85,5 +90,41 @@ class User extends BaseUser
     public function getAge()
     {
         return $this->age;
+    }
+
+    /**
+     * Add Path
+     *
+     * @param \CoreBundle\Entity\Path $path
+     *
+     * @return User
+     */
+    public function addPath(\CoreBundle\Entity\Path $path)
+    {
+        $this->paths[] = $path;
+
+        $path->addUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove path
+     *
+     * @param \CoreBundle\Entity\Path $path
+     */
+    public function removePath(\CoreBundle\Entity\Path $path)
+    {
+        $this->paths->removeElement($path);
+    }
+
+    /**
+     * Get paths
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaths()
+    {
+        return $this->paths;
     }
 }

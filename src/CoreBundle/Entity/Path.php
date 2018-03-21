@@ -49,9 +49,15 @@ class Path extends OrderableItem
     */
     private $modules;
 
+    /**
+    *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="paths")
+    **/
+    private $users;
+
 
     public function __construct() {
       $this->modules = new ArrayCollection;
+      $this->modules = new ArrayCollection();
     }
 
 
@@ -157,5 +163,39 @@ class Path extends OrderableItem
     public function removeModule(Module $module) {
       $this->modules->removeElement($module);
       $module->setPath(null);
+    }
+
+    /**
+     * Add user
+     *
+     * @param \CoreBundle\Entity\User $user
+     *
+     * @return Path
+     */
+    public function addUser(\CoreBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \CoreBundle\Entity\User $user
+     */
+    public function removeUser(\CoreBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
