@@ -73,7 +73,10 @@ class CoreController extends Controller
 
       $paths = $pathRepository->getPathsWithModules();
 
-      return $this->render('CoreBundle:Article:parcours.html.twig', ["paths" => $paths]);
+      return $this->render('CoreBundle:Article:parcours.html.twig', [
+        "paths" => $paths,
+        "startPathType" => $startPathType->createView()
+      ]);
     }
 
     /**
