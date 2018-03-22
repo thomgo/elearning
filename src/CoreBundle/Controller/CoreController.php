@@ -64,18 +64,32 @@ class CoreController extends Controller
     /**
      * @Route("/parcours", name ="parcours")
      */
-    public function parcoursAction()
+    public function parcoursAction(Request $request)
     {
-      $startPathType = $this->createForm('CoreBundle\Form\StartPathType', null, ["index" => 0]);
 
       $em  = $this->getDoctrine()->getManager();
       $pathRepository = $em->getRepository('CoreBundle:Path');
 
       $paths = $pathRepository->getPathsWithModules();
 
+      foreach ($paths as $path) {
+        $startPathType = $this->createForm('CoreBundle\Form\StartPathType', null, ["index" => $path->getId()]);
+        $startPathTypes[] = $startPathType;
+        $startPathTypesViews[] = $startPathType->createView();
+      }
+
+      foreach ($startPathTypes as $startPathType) {
+        $startPathType->handleRequest($request);
+      }
+
+      if ($startPathType->isSubmitted() && $startPathType->isValid()) {
+        $info = $startPathType->getData()["token"];
+      }
+      dump($info);
+
       return $this->render('CoreBundle:Article:parcours.html.twig', [
         "paths" => $paths,
-        "startPathType" => $startPathType->createView()
+        "startPathTypes" => $startPathTypesViews
       ]);
     }
 

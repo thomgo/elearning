@@ -19,9 +19,9 @@
             <span> <i class="fa fa-puzzle-piece" aria-hidden="true"></i> Modules : {{ path.modules.count }} | </span>
             <span class="float-right"><a href="{{ path('modules', {"title": path.title})}}">Démarrer</a></span>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ form_start(startPathType) }}
-                {{ form_widget(startPathType) }}
-            {{ form_end(startPathType) }}
+            {{ form_start(startPathTypes[loop.index0]) }}
+                {{ form_widget(startPathTypes[loop.index0]) }}
+            {{ form_end(startPathTypes[loop.index0]) }}
             {% endif %}
           </div>
         </div>
