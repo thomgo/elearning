@@ -12,5 +12,12 @@
     {% else %}
     <p>Description : {{user.bio }}</p>
     {% endif %}
+    <h4>Progression :</h4>
+    <p>Parcours suivis :</p>
+      <ul>
+        {% for path in user.paths %}
+          <li>{{ path.title }}</li>
+        {% endfor %}
+      </ul>
   </div>
 </aticle>

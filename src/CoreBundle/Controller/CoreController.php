@@ -86,12 +86,22 @@ class CoreController extends Controller
         }
 
         if ($startPathType->isSubmitted() && $startPathType->isValid()) {
-          $info = $startPathType->getData()["token"];
-          dump($info);
+          //Get the current user and the pathid he clicked on
+          $user = $this->getUser();
+          $pathId = $startPathType->getData()["token"];
+
+          //Retrieve the path, add it to the user and save it in database
+          $path = $pathRepository->find($pathId);
+          $user->addPath($path);
+          $em->persist($user);
+          $em->flush();
+
+          //Redirect to the appropriate modules route
+          return $this->redirectToRoute('modules', array('title' => $path->getTitle()));
         }
       }
 
-      //Response with the selection forms
+      //Response with the selection forms if no form ahs been sent
       return $this->render('CoreBundle:Article:parcours.html.twig', [
         "paths" => $paths,
         "startPathTypes" => $startPathTypesViews
