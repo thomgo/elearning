@@ -66,27 +66,32 @@ class CoreController extends Controller
      */
     public function parcoursAction(Request $request)
     {
-
+      //Retrieve the paths entities with the associated modules
       $em  = $this->getDoctrine()->getManager();
       $pathRepository = $em->getRepository('CoreBundle:Path');
 
       $paths = $pathRepository->getPathsWithModules();
 
+      //Loop through path entities, create both selection form and views stored in arrays
       foreach ($paths as $path) {
         $startPathType = $this->createForm('CoreBundle\Form\StartPathType', null, ["index" => $path->getId()]);
         $startPathTypes[] = $startPathType;
         $startPathTypesViews[] = $startPathType->createView();
       }
 
-      foreach ($startPathTypes as $startPathType) {
-        $startPathType->handleRequest($request);
+      //If the user is logged the forms submission is handled
+      if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        foreach ($startPathTypes as $startPathType) {
+          $startPathType->handleRequest($request);
+        }
+
+        if ($startPathType->isSubmitted() && $startPathType->isValid()) {
+          $info = $startPathType->getData()["token"];
+          dump($info);
+        }
       }
 
-      if ($startPathType->isSubmitted() && $startPathType->isValid()) {
-        $info = $startPathType->getData()["token"];
-      }
-      dump($info);
-
+      //Response with the selection forms
       return $this->render('CoreBundle:Article:parcours.html.twig', [
         "paths" => $paths,
         "startPathTypes" => $startPathTypesViews
