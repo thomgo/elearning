@@ -25,15 +25,27 @@ class ProfileController extends BaseController
   }
 
   public function showAction() {
+    //Get the current request
+    $request = $this->get("request_stack")->getCurrentRequest();
+
     $user = $this->getUser();
-    $test = "testpour voir";
     if (!is_object($user) || !$user instanceof UserInterface) {
         throw new AccessDeniedException('This user does not have access to this section.');
     }
 
+    //If ajax request is send to controller to take off a path from user profile
+    if($request->isXmlHttpRequest()) {
+      $em = $this->getDoctrine()->getManager();
+      $pathRepository = $em->getRepository('CoreBundle:Path');
+      $path = $pathRepository->find($request->get("itemToDelete"));
+
+      $user->removePath($path);
+
+      $em->flush();
+    }
+
     return $this->render('@FOSUser/Profile/show.html.twig', array(
         'user' => $user,
-        'test' => $test
     ));
   }
 }

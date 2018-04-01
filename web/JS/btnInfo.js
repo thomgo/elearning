@@ -1,4 +1,6 @@
 function deleteItem(button) {
+  var parentElement = document.getElementById("parentElement");
+  var elementToDelete = button.parentElement;
   $.ajax({
     url: "",
     method: "POST",
@@ -9,4 +11,5 @@ function deleteItem(button) {
     async: true,
     cache: false
   });
+  parentElement.removeChild(elementToDelete);
 }
