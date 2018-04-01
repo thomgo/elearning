@@ -1,1 +1,3 @@
-alert("test");
+function deleteItem(button) {
+  alert(button.value);
+}

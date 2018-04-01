@@ -16,7 +16,11 @@
     <p>Parcours suivis :</p>
       <ul>
         {% for path in user.paths %}
-          <li>{{ path.title }}</li>
+          <li>
+            {{ path.title }}
+            <button type="button" name="button" onclick="deleteItem(this)" value="{{ path.id }}"><i class="fa fa-times"></i></button>
+          </li>
+
         {% endfor %}
       </ul>
   </div>
