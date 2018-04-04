@@ -9,7 +9,14 @@ function deleteItem(button) {
       itemToDelete: button.value
     },
     async: true,
+    success: function(response){
+      if(response.success) {
+          parentElement.removeChild(elementToDelete);
+      }
+      else {
+        alert("Désolé, nous n'avons pas pu vous retirer de se parcours à cause d'un problème technique, merci d'essayer plus tard")
+      }
+    },
     cache: false
   });
-  parentElement.removeChild(elementToDelete);
 }
