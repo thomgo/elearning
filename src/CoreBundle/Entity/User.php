@@ -101,6 +101,9 @@ class User extends BaseUser
      */
     public function addPath(\CoreBundle\Entity\Path $path)
     {
+      if ($this->paths->contains($path)) {
+          return;
+        }
         $this->paths[] = $path;
 
         $path->addUser($this);
