@@ -1,0 +1,41 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration{% endblock %}
+
+{% block main %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for test in tests %}
+            <tr>
+                <td><a href="{{ path('admin_test_show', { 'id': test.id }) }}">{{ test.id }}</a></td>
+                <td>{{ test.title }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_test_show', { 'id': test.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_test_edit', { 'id': test.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_test_new') }}">Create a new test</a>
+        </li>
+    </ul>
+{% endblock %}
