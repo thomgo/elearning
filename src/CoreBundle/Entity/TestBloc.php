@@ -56,6 +56,11 @@ class TestBloc
      */
     private $rightAnswer;
 
+    /**
+    *@ORM\ManyToOne(targetEntity="CoreBundle\Entity\Test", inversedBy="testBlocs")
+    *@ORM\JoinColumn(nullable=true)
+    */
+    private $test;
 
     /**
      * Get id
@@ -187,4 +192,3 @@ class TestBloc
         return $this->rightAnswer;
     }
 }
-

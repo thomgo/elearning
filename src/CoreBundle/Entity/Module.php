@@ -166,7 +166,7 @@ class Module extends OrderableItem
     }
 
     public function addArticle(Article $article) {
-      if($this->articles>contains($article)) {
+      if($this->articles->contains($article)) {
         return;
       }
 

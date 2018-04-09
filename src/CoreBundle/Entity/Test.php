@@ -28,6 +28,16 @@ class Test
      */
     private $title;
 
+    /**
+     *
+     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\TestBloc", mappedBy="test")
+     */
+    private $testBlocs;
+
+    public function __construct() {
+      $this->testBlocs = new ArrayColLection();
+    }
+
 
     /**
      * Get id
@@ -62,5 +72,34 @@ class Test
     {
         return $this->title;
     }
-}
 
+    /**
+     * Add testBloc
+     */
+    public function addTestBloc(TestBloc $testBloc = null)
+    {
+        if($this->testBlocs->contains($TestBloc)) {
+          return;
+        }
+
+        $this->testBlocs[] = $testBloc;
+        $testBloc->setTest($this);
+    }
+
+    /**
+     * Remove testBloc
+     */
+    public function RemoveTestBloc(TestBloc $testBloc)
+    {
+        $this->testBlocs->removeElement($testBloc);
+        $testBloc->setTest(null);
+    }
+
+    /**
+     * Get testBloc
+     */
+    public function getTestBlocs()
+    {
+        return $this->testBlocs;
+    }
+}
