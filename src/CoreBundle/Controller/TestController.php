@@ -5,7 +5,9 @@ namespace CoreBundle\Controller;
 use CoreBundle\Entity\Test;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use CoreBundle\Service\DeleteFormGenerator;
 
 /**
  * Test controller.
@@ -20,14 +22,17 @@ class TestController extends Controller
      * @Route("/", name="admin_test_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
     {
         $em = $this->getDoctrine()->getManager();
 
         $tests = $em->getRepository('CoreBundle:Test')->findAll();
 
+        $deleteForm = $DeleteFormGenerator->generateDeleteForms($tests, 'admin_test_delete');
+
         return $this->render('CoreBundle:Admin/Test:index.html.twig', array(
             'tests' => $tests,
+            'delete_form' =>$deleteForm
         ));
     }
 
@@ -115,7 +120,7 @@ class TestController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_index');
+        return $this->redirectToRoute('admin_test_index');
     }
 
     /**

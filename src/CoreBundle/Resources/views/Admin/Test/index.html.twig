@@ -19,6 +19,9 @@
                 <td>{{ test.id }}</td>
                 <td>{{ test.title }}</td>
                 <td class="adminActions">
+                  {{ form_start(delete_form[loop.index0]) }}
+                      <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  {{ form_end(delete_form[loop.index0]) }}
                   <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('admin_test_show', {"id" : test.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
                   <a class="btn darkBlue tWhite mx-1" href="{{ path('admin_test_edit', {"id" : test.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </td>
