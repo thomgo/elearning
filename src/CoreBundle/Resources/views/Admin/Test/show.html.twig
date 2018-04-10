@@ -1,7 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends "CoreBundle::adminLayout.html.twig" %}
 
-{% block body %}
-    <h1>Test</h1>
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout d'un QCM{% endblock %}
+
+{% block main %}
+    <h2>Détail du test</h2>
 
     <table>
         <tbody>
@@ -16,16 +19,16 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_test_index') }}">Back to the list</a>
+    <ul class="list-group mt-3">
+        <li class="list-group-item">
+            <a href="{{ path('admin_test_index') }}">Retour à la liste des QCM</a>
         </li>
-        <li>
-            <a href="{{ path('admin_test_edit', { 'id': test.id }) }}">Edit</a>
+        <li class="list-group-item">
+            <a href="{{ path('admin_test_edit', { 'id': test.id }) }}">Modifier</a>
         </li>
-        <li>
+        <li class="list-group-item">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>
