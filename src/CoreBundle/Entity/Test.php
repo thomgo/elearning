@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Test
@@ -35,7 +36,7 @@ class Test
     private $testBlocs;
 
     public function __construct() {
-      $this->testBlocs = new ArrayColLection();
+      $this->testBlocs = new ArrayCollection();
     }
 
 

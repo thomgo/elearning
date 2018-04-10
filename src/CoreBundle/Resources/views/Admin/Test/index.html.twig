@@ -4,8 +4,8 @@
 {% block sub_title %}{{ parent()}} Administration{% endblock %}
 
 {% block main %}
-
-    <table>
+  <a href="{{ path('admin_test_new') }}"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+    <table class="table table-striped mt-3">
         <thead>
             <tr>
                 <th>Id</th>
@@ -16,26 +16,14 @@
         <tbody>
         {% for test in tests %}
             <tr>
-                <td><a href="{{ path('admin_test_show', { 'id': test.id }) }}">{{ test.id }}</a></td>
+                <td>{{ test.id }}</td>
                 <td>{{ test.title }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_test_show', { 'id': test.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_test_edit', { 'id': test.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td class="adminActions">
+                  <a class="btn darkBlue tWhite mx-1 blueReverse" href="{{ path('admin_test_show', {"id" : test.id }) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                  <a class="btn darkBlue tWhite mx-1" href="{{ path('admin_test_edit', {"id" : test.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_test_new') }}">Create a new test</a>
-        </li>
-    </ul>
 {% endblock %}
