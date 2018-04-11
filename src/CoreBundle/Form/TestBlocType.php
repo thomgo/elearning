@@ -17,7 +17,8 @@ class TestBlocType extends AbstractType
                 ->add('firstFalse')
                 ->add('secondFalse')
                 ->add('thirdFalse')
-                ->add('rightAnswer');
+                ->add('rightAnswer')
+                ->add('explaination');
     }/**
      * {@inheritdoc}
      */

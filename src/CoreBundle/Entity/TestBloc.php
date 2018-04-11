@@ -57,6 +57,13 @@ class TestBloc
     private $rightAnswer;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="explaination", type="text")
+     */
+    private $explaination;
+
+    /**
     *@ORM\ManyToOne(targetEntity="CoreBundle\Entity\Test", inversedBy="testBlocs")
     *@ORM\JoinColumn(nullable=true)
     */
