@@ -35,16 +35,30 @@ function addTagForm($collectionHolder, $newLinkLi) {
     // You need this only if you didn't set 'label' => false in your tags field in TaskType
     // Replace '__name__label__' in the prototype's HTML to
     // instead be a number based on how many items we have
-    // newForm = newForm.replace(/__name__label__/g, index);
+    newForm = newForm.replace(/__name__label__/g, "<h3 class='questionTitle my-3'>Question : " + (index + 1) + "</h3>");
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
-    newForm = newForm.replace(/__name__/g, index);
+    // newForm = newForm.replace(/__name__/g, index + 1);
 
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<div></div>').append(newForm);
+
+    // also add a remove button, just for this example
+    $newFormLi.append('<button type="button" class="deleteButton"><i class="fa fa-trash"></i></button> ');
+
+    // handle the removal and reorder the index
+    $('.deleteButton').click(function() {
+        $(this).parent().remove();
+        $('.questionTitle').each(function(loopIndex) {
+          $(this).text("Question : " + (loopIndex + 1));
+          $collectionHolder.data('index', loopIndex + 1);
+        });
+        return false;
+    });
+
     $newLinkLi.before($newFormLi);
 }
