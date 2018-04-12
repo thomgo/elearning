@@ -31,7 +31,7 @@ class Test
 
     /**
      *
-     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\TestBloc", mappedBy="test")
+     *@ORM\OneToMany(targetEntity="CoreBundle\Entity\TestBloc", mappedBy="test", cascade={"persist", "remove"})
      */
     private $testBlocs;
 

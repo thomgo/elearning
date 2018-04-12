@@ -39,7 +39,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
-    // newForm = newForm.replace(/__name__/g, index + 1);
+    newForm = newForm.replace(/__name__/g, index + 1);
 
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);

@@ -65,7 +65,6 @@ class TestBloc
 
     /**
     *@ORM\ManyToOne(targetEntity="CoreBundle\Entity\Test", inversedBy="testBlocs")
-    *@ORM\JoinColumn(nullable=true)
     */
     private $test;
 
@@ -197,5 +196,53 @@ class TestBloc
     public function getRightAnswer()
     {
         return $this->rightAnswer;
+    }
+
+    /**
+     * Set rightAnswer
+     *
+     * @param string $explaination
+     *
+     * @return TestBloc
+     */
+    public function setExplaination($explaination)
+    {
+        $this->explaination = $explaination;
+
+        return $this;
+    }
+
+    /**
+     * Get explaination
+     *
+     * @return string
+     */
+    public function getExplaination()
+    {
+        return $this->explaination;
+    }
+
+    /**
+     * Set test
+     *
+     * @param string $test
+     *
+     * @return TestBloc
+     */
+    public function setTest( Test $test)
+    {
+        $this->test = $test;
+
+        return $this;
+    }
+
+    /**
+     * Get test
+     *
+     * @return Test
+     */
+    public function getTest()
+    {
+        return $this->test;
     }
 }

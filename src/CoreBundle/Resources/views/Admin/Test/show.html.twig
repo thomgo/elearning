@@ -16,6 +16,12 @@
                 <th>Title</th>
                 <td>{{ test.title }}</td>
             </tr>
+            <tr>
+                <th>Questions</th>
+                {% for testBloc in test.testBlocs %}
+                <td>{{ testBloc.question }}</td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 
