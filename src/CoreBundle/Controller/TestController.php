@@ -26,7 +26,7 @@ class TestController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tests = $em->getRepository('CoreBundle:Test')->findAll();
+        $tests = $em->getRepository('CoreBundle:Test')->getTestswithAssociations();
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($tests, 'admin_test_delete');
 

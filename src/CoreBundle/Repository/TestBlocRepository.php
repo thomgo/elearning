@@ -10,4 +10,5 @@ namespace CoreBundle\Repository;
  */
 class TestBlocRepository extends \Doctrine\ORM\EntityRepository
 {
+  
 }
