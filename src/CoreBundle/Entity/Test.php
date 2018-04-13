@@ -79,7 +79,7 @@ class Test
      */
     public function addTestBloc(TestBloc $testBloc = null)
     {
-        if($this->testBlocs->contains($TestBloc)) {
+        if($this->testBlocs->contains($testBloc)) {
           return;
         }
 

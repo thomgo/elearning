@@ -49,12 +49,12 @@ class TestController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          dump($test);
-            // $em = $this->getDoctrine()->getManager();
-            // $em->persist($test);
-            // $em->flush();
+          // dump($test);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($test);
+            $em->flush();
 
-            //return $this->redirectToRoute('admin_test_show', array('id' => $test->getId()));
+            return $this->redirectToRoute('admin_test_show', array('id' => $test->getId()));
         }
 
         return $this->render('CoreBundle:Admin/Test:new.html.twig', array(

@@ -18,7 +18,8 @@ class TestType extends AbstractType
         ->add('testBlocs', CollectionType::class, array(
         'entry_type'   => TestBlocType::class,
         'allow_add'    => true,
-        'allow_delete' => true
+        'allow_delete' => true,
+        'by_reference' => false
         ));
     }/**
      * {@inheritdoc}
