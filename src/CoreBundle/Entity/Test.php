@@ -30,6 +30,12 @@ class Test
     private $title;
 
     /**
+     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Article")
+     *
+     */
+     private $article;
+
+    /**
      *
      *@ORM\OneToMany(targetEntity="CoreBundle\Entity\TestBloc", mappedBy="test", cascade={"persist", "remove"})
      */
@@ -72,6 +78,31 @@ class Test
     public function getTitle()
     {
         return $this->title;
+    }
+
+
+    /**
+     * Set article
+     *
+     * @param Article $article
+     *
+     * @return Test
+     */
+    public function setArticle(Article $article)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 
     /**

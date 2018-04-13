@@ -10,6 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
+                <th>Article</th>
+                <th>Questions</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,6 +20,8 @@
             <tr>
                 <td>{{ test.id }}</td>
                 <td>{{ test.title }}</td>
+                <td>{{ test.article.title }}</td>
+                <td>{{ test.testBlocs|length}}</td>
                 <td class="adminActions">
                   {{ form_start(delete_form[loop.index0]) }}
                       <button type="submit" class="btn darkBlue tWhite mx-1"><i class="fa fa-trash" aria-hidden="true"></i></button>

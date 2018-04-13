@@ -17,13 +17,19 @@
                 <td>{{ test.title }}</td>
             </tr>
             <tr>
-                <th>Questions</th>
-                {% for testBloc in test.testBlocs %}
-                <td>{{ testBloc.question }}</td>
-                {% endfor %}
+              <th>Article</th>
+              <td>{{ test.article.title }}</td>
+            </tr>
+            <tr>
+              <th>Questions</th>
             </tr>
         </tbody>
     </table>
+    <ul>
+      {% for testBloc in test.testBlocs %}
+      <li>{{ testBloc.question }}</li>
+      {% endfor %}
+    </ul>
 
     <ul class="list-group mt-3">
         <li class="list-group-item">
