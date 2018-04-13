@@ -78,3 +78,42 @@
 .articleContent {
   height: 500px;
 }
+
+/*
+
+~~~~~~~ Quiz CSS ~~~~~~~
+
+*/
+
+.question p {
+       font-size: 2em;
+     }
+
+     .question input {
+       margin: 1em 0;
+     }
+
+     .question .result, .question .explaination {
+       font-size: 1.5em;
+     }
+
+     .good {
+       background-color: #3f7d20;
+     }
+
+     .bad {
+       background-color: #db162f;
+     }
+
+     .good, .bad {
+       border-top: 1em;
+       border-radius: 5px;
+       padding: 0.5em;
+       color: white;
+       max-width: 300px;
+     }
+
+     .question .explaination {
+       font-size: 1.3em;
+       padding: 0.5em;
+     }
