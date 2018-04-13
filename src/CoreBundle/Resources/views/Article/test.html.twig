@@ -8,7 +8,7 @@
   <div class="mt-5">
   {% for testBloc in test.testBlocs %}
       <article class="question">
-          <p>{{ testBloc.question}}</p>
+          <p class="interrogation">{{ testBloc.question}}</p>
 
           <input type="radio" onclick="getAnswers()" value="{{ testBloc.firstFalse }}"></input>
           <input type="radio" onclick="getAnswers()" value="{{ testBloc.secondFalse }}"></input>
@@ -19,6 +19,9 @@
           <p class="explaination">{{ testBloc.explaination }}</p>
       </article>
   {% endfor %}
+    <article class="score mt-5">
+      <p>Nombre de bonnes réponses</p>
+    </article>
   </div>
 
 {% endblock %}

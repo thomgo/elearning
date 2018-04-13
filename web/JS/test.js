@@ -16,6 +16,14 @@ $( document ).ready(function() {
   // Clear the radio button on the whole page
   $("input").prop('checked', false);
 
+  //Reorder randomly the answers of every questions
+  $(".question").each(function(index) {
+    var inputs = $(this).children("input").detach();
+    inputs.sort(function(a, b){return 0.5 - Math.random()});
+    inputs.insertAfter($(this).children(".interrogation"));
+    $(this).children(".interrogation").prepend((index + 1) + " : ");
+  });
+
   // Add the value as text after the input to avoid to copy it in html and clear tags
   $("input").each(function(){
     var answerContent = $(this).val().replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -41,7 +49,7 @@ $( document ).ready(function() {
   var score = 0;
 
   // Add the current score to the article with class .score, by default 0
-  $(".score").append("<p>" + score + "/" + finalscore + "</p>");
+  $(".score").append("<p class='goodAnswers'>" + score + "/" + finalscore + "</p>");
 
   // Declare the variable to store the user answer and the correct one to compare
   var userAnswer;
@@ -56,7 +64,7 @@ $( document ).ready(function() {
       if (userAnswer === correctAnswer) {
         $(this).after("<p class='result good'>Bonne réponse</p>");
         score = score + 1;
-        $(".score p").html( score + "/" + finalscore );
+        $(".score .goodAnswers").html( score + "/" + finalscore );
       }
       else {
         $(this).after("<p class='result bad'>Mauvaise réponse</p>");
