@@ -25,7 +25,7 @@
   <!-- Article main content -->
   <p>{{ article.content | md2html }}</p>
   <p>
-    {% if article.test is defined %}
+    {% if article.test is not null %}
     <a href="{{ path('test', {"id": article.test.id}) }}" class="btn cardButton tlightBlue">Passer le test</a>
     {% endif %}
   </p>

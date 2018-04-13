@@ -61,6 +61,8 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     ->addSelect("ctg")
     ->leftjoin("a.module", "mod")
     ->addSelect("mod")
+    ->leftJoin("a.test", "tst")
+    ->addSelect("tst")
     ->leftjoin("mod.path", "pth")
     ->addSelect("pth")
     ->getQuery()

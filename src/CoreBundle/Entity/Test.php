@@ -30,7 +30,7 @@ class Test
     private $title;
 
     /**
-     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Article")
+     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Article", inversedBy="test")
      *
      */
      private $article;

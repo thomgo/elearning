@@ -60,6 +60,12 @@ class Article extends OrderableItem
     */
     private $module;
 
+
+    /**
+     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Test", mappedBy="article", cascade={"remove"})
+     */
+     private $test;
+
     public function __construct()
     {
         $this->date = new \Datetime();
@@ -224,6 +230,22 @@ class Article extends OrderableItem
 
     public function getModule() {
       return $this->module;
+    }
+
+    /**
+     * Set test
+    */
+
+    public function setTest(Test $test = null) {
+      $this->test = $test;
+    }
+
+    /**
+    * Get test
+    */
+
+    public function getTest() {
+      return $this->test;
     }
 
 }
