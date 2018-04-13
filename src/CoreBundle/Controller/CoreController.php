@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use CoreBundle\Entity\Path;
 use CoreBundle\Entity\Module;
+use CoreBundle\Entity\Test;
 
 class CoreController extends Controller
 {
@@ -35,7 +36,6 @@ class CoreController extends Controller
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
         $article = $articleRepository->getSingleArticle($id);
-
         return $this->render('CoreBundle:Article:single.html.twig', ["article"=>$article]);
     }
 
@@ -143,6 +143,16 @@ class CoreController extends Controller
         "module" => $module,
         "articles" => $articles,
         "previous_page" => $referer
+      ]);
+    }
+
+    /**
+     * @Route("test/{id}", name ="test")
+     * @ParamConverter("test", class="CoreBundle:Test")
+     */
+    public function testAction(Test $test) {
+      return $this->render('CoreBundle:Article:test.html.twig', [
+        'test' => $test
       ]);
     }
 }
