@@ -52,7 +52,7 @@ $( document ).ready(function() {
   $(".score").append("<p class='goodAnswers'>" + score + "/" + finalscore + "</p>");
 
   // Declare the variable to store the user answer and the correct one to compare
-  var userAnswer;
+  var userAnswer = null;
   var correctAnswer;
 
   // Start to catch the user answer for comparaison
@@ -60,51 +60,60 @@ $( document ).ready(function() {
 
   // When the user decides to validate his answer it is compared to the correctAnswer
     $(".validate").click(function() {
-      $(".result").remove();
-      if (userAnswer === correctAnswer) {
-        $(this).after("<p class='result good'>Bonne réponse</p>");
-        score = score + 1;
-        $(".score .goodAnswers").html( score + "/" + finalscore );
+      if(userAnswer === null) {
+        alert("Il faut choisir une réponse")
       }
       else {
-        $(this).after("<p class='result bad'>Mauvaise réponse</p>");
-      }
-
-      // Show the explaination paragraphe and hide the validate button
-      $(".current .explaination").fadeIn();
-      $(this).hide();
-      // Add the next button
-      $(".current .explaination").after("<button class='next btn cardButton tlightBlue'>Suivant</button>");
-
-      $(".next").click(function(){
-        if($(this).parent(".question").index() === finalscore - 1) {
-          var godAnswer = Math.round((score/finalscore)*100) ;
-          var advice;
-
-          if (godAnswer<50) {
-            advice = "Il semble que plusieurs notions importantes ne soient pas comprises, il faut continuer à travailler";
-          }
-          else if (godAnswer >= 50 && godAnswer<75) {
-            advice = "Les bases sont acquises mais il faudrait peut-être relire quelques chapitres";
-          }
-          else if (godAnswer >= 75 && godAnswer< 100) {
-            advice = "Très bon score vous êtes prêt pour la suite";
-          }
-          else {
-            advice = "Parfait rien ne vous a échappé foncez vers la suite";
-          }
-
-          alert("Test fini vous avez bien répondu à " + godAnswer + "% des questions. " + advice);
-          location.reload();
+        $(".result").remove();
+        if (userAnswer === correctAnswer) {
+          $(this).after("<p class='result good'>Bonne réponse</p>");
+          score = score + 1;
+          $(".score .goodAnswers").html( score + "/" + finalscore );
         }
         else {
-          $(".current").next().addClass("current").show();
-          $(".current").first().removeClass("current").hide();
-          $(".current .explaination").hide();
-
-          getAnswers();
+          $(this).after("<p class='result bad'>Mauvaise réponse</p>");
         }
-      });
+
+        // Show the explaination paragraphe and hide the validate button
+        $(".current .explaination").fadeIn();
+        $(this).hide();
+        // Add the next button
+        $(".current .explaination").after("<button class='next btn cardButton tlightBlue'>Suivant</button>");
+
+        $(".next").click(function(){
+          //Clear the user answer
+          userAnswer = null;
+
+          if($(this).parent(".question").index() === finalscore - 1) {
+            var godAnswer = Math.round((score/finalscore)*100) ;
+            var advice;
+
+            if (godAnswer<50) {
+              advice = "Il semble que plusieurs notions importantes ne soient pas comprises, il faut continuer à travailler";
+            }
+            else if (godAnswer >= 50 && godAnswer<75) {
+              advice = "Les bases sont acquises mais il faudrait peut-être relire quelques chapitres";
+            }
+            else if (godAnswer >= 75 && godAnswer< 100) {
+              advice = "Très bon score vous êtes prêt pour la suite";
+            }
+            else {
+              advice = "Parfait rien ne vous a échappé foncez vers la suite";
+            }
+
+            alert("Test fini vous avez bien répondu à " + godAnswer + "% des questions. " + advice);
+            location.reload();
+          }
+          else {
+            $(".current").next().addClass("current").show();
+            $(".current").first().removeClass("current").hide();
+            $(".current .explaination").hide();
+
+            getAnswers();
+          }
+        });
+      }
+
 
     });
 
