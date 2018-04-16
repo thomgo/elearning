@@ -25,7 +25,7 @@
   <!-- Article main content -->
   <p>{{ article.content | md2html }}</p>
   <p>
-    {% if article.test is not null %}
+    {% if article.test is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
     <a href="{{ path('test', {"id": article.test.id}) }}" class="btn cardButton tlightBlue">Passer le test</a>
     {% endif %}
   </p>
