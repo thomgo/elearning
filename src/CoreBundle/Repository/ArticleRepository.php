@@ -10,6 +10,7 @@ namespace CoreBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+  //Function to get articles on the home page
   public function getArticlesImagesAndCategories() {
     $articles = $this->createQueryBuilder('a')
     ->orderBy("a.id", "DESC")
@@ -22,5 +23,53 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     ->getResult();
 
     return $articles;
+  }
+
+  //Articles sorted by modules
+  public function getArticlesImagesByModule($module) {
+    $articles = $this->createQueryBuilder('a')
+    ->where("a.module = :module")
+    ->setParameter('module', $module)
+    ->orderBy('a.dispatch', 'ASC')
+    ->leftJoin("a.image", "img")
+    ->addSelect("img")
+    ->leftJoin("a.categories", "cat")
+    ->addSelect("cat")
+    ->getQuery()
+    ->getResult();
+
+    return $articles;
+  }
+  //Default request for the admin index article page
+  public function getArticlesWithCategoryModules() {
+    $articles = $this->createQueryBuilder('a')
+    ->leftjoin("a.categories", "ctg")
+    ->addSelect("ctg")
+    ->leftjoin("a.module", "mod")
+    ->addSelect("mod")
+    ->leftjoin("a.test", "tst")
+    ->addSelect("tst")
+    ->getQuery()
+    ->getResult();
+
+    return $articles;
+  }
+
+  public function getSingleArticle($id) {
+    $article = $this->createQueryBuilder('a')
+    ->where("a.id = :articleId")
+    ->setParameter('articleId', $id)
+    ->leftjoin("a.categories", "ctg")
+    ->addSelect("ctg")
+    ->leftjoin("a.module", "mod")
+    ->addSelect("mod")
+    ->leftJoin("a.test", "tst")
+    ->addSelect("tst")
+    ->leftjoin("mod.path", "pth")
+    ->addSelect("pth")
+    ->getQuery()
+    ->getResult();
+
+    return $article[0];
   }
 }

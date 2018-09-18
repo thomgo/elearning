@@ -1,0 +1,31 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Test{% endblock %}
+
+{% block main %}
+<h2>{{ test.title }}</h2>
+  <div class="mt-5">
+  {% for testBloc in test.testBlocs %}
+      <article class="question">
+          <p class="interrogation">{{ testBloc.question}}</p>
+
+          <input type="radio" onclick="getAnswers()" value="{{ testBloc.firstFalse }}"></input>
+          <input type="radio" onclick="getAnswers()" value="{{ testBloc.secondFalse }}"></input>
+          <input onclick="getAnswers()" type="radio" value="{{ testBloc.thirdFalse }}"></input>
+          <input class="right" onclick="getAnswers()" type="radio" value="{{ testBloc.rightAnswer }}"></input>
+
+          <button class="validate btn cardButton tlightBlue">Valider</button>
+          <p class="explaination">{{ testBloc.explaination }}</p>
+      </article>
+  {% endfor %}
+    <article class="score mt-5">
+      <p>Nombre de bonnes réponses</p>
+    </article>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('JS/test.js') }}"></script>
+{% endblock %}

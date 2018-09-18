@@ -22,9 +22,9 @@
               <th>Actions</th>
           </tr>
       </thead>
-      <tbody>
+      <tbody id="sortable">
       {% for module in modules %}
-          <tr>
+          <tr class="sortableItem">
               <td>{{ module.id }}</td>
               <td>{{ module.title }}</td>
               <td>{{ module.difficulty }}</td>

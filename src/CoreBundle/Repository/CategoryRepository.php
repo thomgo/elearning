@@ -10,7 +10,7 @@ namespace CoreBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-  public function getCategoryWithArticles() {
+  public function getCategoryWithArticles($category) {
     $categoryArticles = $this->createQueryBuilder('c')
     ->where('c.name = :category')
     ->setParameter('category', $category)

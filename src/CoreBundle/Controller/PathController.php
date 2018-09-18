@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Service\DeleteFormGenerator;
+use CoreBundle\Service\OrderEntities;
 
 /**
  * Path controller.
@@ -20,13 +21,20 @@ class PathController extends Controller
      * Lists all path entities.
      *
      * @Route("/", name="admin_path_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request, OrderEntities $orderEntities)
     {
-        $em = $this->getDoctrine()->getManager();
+      $em = $this->getDoctrine()->getManager();
+      $pathRepo = $em->getRepository('CoreBundle:Path');
 
-        $paths = $em->getRepository('CoreBundle:Path')->findAll();
+      //Reorder the path with the ajax request
+      if($request->isXmlHttpRequest()) {
+        $paths = $orderEntities->order($pathRepo, "title");
+        $em->flush();
+      }
+
+        $paths = $pathRepo->findBy([], ["dispatch"=>"ASC"]);
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($paths, 'admin_path_delete');
 

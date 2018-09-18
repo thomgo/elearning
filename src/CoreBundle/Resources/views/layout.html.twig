@@ -33,6 +33,7 @@
     </ul>
   </div>
   {% if app.user.username is defined %}
+    <a href="{{ path('fos_user_profile_show')}}"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>Profile</a>
     <a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>Deconnexion</a>
   {% else %}
       <a href="{{ path('fos_user_security_login')}}"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>Connexion</a>

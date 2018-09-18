@@ -5,26 +5,37 @@ namespace CoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SortingType extends AbstractType
 {
 
-    private $sortingChoices;
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+      if($options['parentIndication']) {
+        foreach ($options['choices'] as $entity) {
+          $subChoices = [];
+          foreach ($entity->getModules() as $otherEntity) {
+            $subChoices[$otherEntity->getTitle()] = $otherEntity;
+          }
+          $choices[$entity->getTitle()] = $subChoices;
+        }
+        $builder->add('sort', ChoiceType::class, [
+        'choices'  => $choices,
+        ]);
+      }
+      else {
         $builder->add('sort', ChoiceType::class, [
         'choices'  => $options['choices'],
         'choice_label' => function ($value, $key, $index) {
           return $value->getTitle();
         }
         ]);
+      }
     }
 
     /**
@@ -34,7 +45,8 @@ class SortingType extends AbstractType
     {
         //Add a choices index to $option
         $resolver->setDefaults(array(
-            'choices'=>null
+            'choices'=>null,
+            'parentIndication' => false
         ));
     }
 

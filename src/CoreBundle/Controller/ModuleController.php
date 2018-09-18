@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Service\DeleteFormGenerator;
+use CoreBundle\Service\OrderEntities;
 
 /**
  * Module controller.
@@ -22,9 +23,16 @@ class ModuleController extends Controller
      * @Route("/", name="admin_module_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator , Request $request)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator , Request $request, OrderEntities $orderEntities)
     {
         $em = $this->getDoctrine()->getManager();
+        $moduleRepo = $em->getRepository('CoreBundle:Module');
+
+        //Reorder the modules with the ajax request
+        if($request->isXmlHttpRequest()) {
+          $modules = $orderEntities->order($moduleRepo, "title");
+          $em->flush();
+        }
 
         //Get all the paths and pass it to the sorting form
         $paths = $em->getRepository("CoreBundle:Path")->findAll();
@@ -35,12 +43,13 @@ class ModuleController extends Controller
          if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
              //Get the path object returned by the form input of name sort
              $sortingPath = $sortingForm->getData()["sort"];
-             $modules = $em->getRepository('CoreBundle:Module')->findBy(
-               ["path" => $sortingPath->getId()]
+             $modules = $moduleRepo->findBy(
+               ["path" => $sortingPath->getId()],
+               ["dispatch"=>"ASC"]
              );
          }
          else {
-             $modules = $em->getRepository('CoreBundle:Module')->findAll();
+             $modules = $moduleRepo->findBy([], ["id"=>"ASC"]);
          }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($modules, 'admin_module_delete');

@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use CoreBundle\Entity\OrderableItem;
 
 /**
  * Path
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="path")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\PathRepository")
  */
-class Path
+class Path extends OrderableItem
 {
     /**
      * @var int
@@ -48,9 +49,15 @@ class Path
     */
     private $modules;
 
+    /**
+    *@ORM\ManyToMany(targetEntity="CoreBundle\Entity\User", mappedBy="paths")
+    **/
+    private $users;
+
 
     public function __construct() {
       $this->modules = new ArrayCollection;
+      $this->modules = new ArrayCollection();
     }
 
 
@@ -136,7 +143,6 @@ class Path
         return $this->description;
     }
 
-
     /**
     * @return Collection|Modules[]
     */
@@ -157,5 +163,39 @@ class Path
     public function removeModule(Module $module) {
       $this->modules->removeElement($module);
       $module->setPath(null);
+    }
+
+    /**
+     * Add user
+     *
+     * @param \CoreBundle\Entity\User $user
+     *
+     * @return Path
+     */
+    public function addUser(\CoreBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \CoreBundle\Entity\User $user
+     */
+    public function removeUser(\CoreBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

@@ -4,7 +4,31 @@
 {% block sub_title %}{{ parent()}} Article détaillé{% endblock %}
 
 {% block main %}
+<div>
+  <!-- Article image -->
+  {% if article.image.path is defined %}
+  <img class="card-img-top img-fluid singleImage" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
+  {% endif %}
+
+  <!-- Article information : title, category and links to path and module -->
   <h2> {{ article.title }}</h2>
-  <p>publié le {{ article.date|date("d-md-Y")}}</p>
-  <p>{{ article.content }}</p>
+  <p>publié le {{ article.date|date("d-md-Y")}},
+    Catgéories :
+      {% for category in article.categories %}
+        <span>{{ category.name }}</span>
+      {% endfor %}
+  </p>
+  <p>
+    Parcours : <a href="{{ path('modules', {'title': article.module.path.title})}}">{{ article.module.path.title }}</a> / Module : <a href="{{ path('moduleArticles',{'title': article.module.title} )}}">{{ article.module.title }}</a>
+  </p>
+
+  <!-- Article main content -->
+  <p>{{ article.content | md2html }}</p>
+  <p>
+    {% if article.test is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('test', {"id": article.test.id}) }}" class="btn cardButton tlightBlue">Passer le test</a>
+    {% endif %}
+  </p>
+</div>
+
 {% endblock %}

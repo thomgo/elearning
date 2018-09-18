@@ -4,6 +4,7 @@ namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use CoreBundle\Entity\OrderableItem;
 
 /**
  * Article
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ArticleRepository")
  */
-class Article
+class Article extends OrderableItem
 {
     /**
      * @var int
@@ -58,6 +59,12 @@ class Article
      *@ORM\JoinColumn(nullable=true)
     */
     private $module;
+
+
+    /**
+     *@ORM\OneToOne(targetEntity="CoreBundle\Entity\Test", mappedBy="article", cascade={"remove"})
+     */
+     private $test;
 
     public function __construct()
     {
@@ -223,6 +230,22 @@ class Article
 
     public function getModule() {
       return $this->module;
+    }
+
+    /**
+     * Set test
+    */
+
+    public function setTest(Test $test = null) {
+      $this->test = $test;
+    }
+
+    /**
+    * Get test
+    */
+
+    public function getTest() {
+      return $this->test;
     }
 
 }

@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class ArticleType extends AbstractType
 {
@@ -16,7 +18,7 @@ class ArticleType extends AbstractType
     {
         $builder
         ->add('title')
-        ->add('content')
+        ->add('content', TextareaType::class, array('attr' => array('class' => 'articleContent')))
         ->add('date')
         //The user is not forced to submit an image therefor this form is not required
         ->add('image', ImageType::class, [
@@ -27,6 +29,10 @@ class ArticleType extends AbstractType
           'choice_label'=> 'name',
           'multiple' => true,
           "expanded" => true,
+        ])
+        ->add('module', EntityType::class, [
+          'class'=> 'CoreBundle:Module',
+          'choice_label'=> 'title',
         ]);
     }
 

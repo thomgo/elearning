@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 use CoreBundle\Service\DeleteFormGenerator;
+use CoreBundle\Service\OrderEntities;
 /**
  * Article controller.
  *
@@ -18,26 +19,39 @@ class ArticleController extends Controller
      * Lists all article entities.
      *
      * @Route("/", name="admin_article_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction(DeleteFormGenerator $DeleteFormGenerator)
+    public function indexAction(DeleteFormGenerator $DeleteFormGenerator, Request $request, OrderEntities $orderEntities)
     {
         $em = $this->getDoctrine()->getManager();
-
         $articleRepository = $em->getRepository('CoreBundle:Article');
 
-        $query = $articleRepository->createQueryBuilder("a")
-        ->leftjoin("a.categories", "ctg")
-        ->addSelect("ctg")
-        ->getQuery();
+        //Reorder the articles with the ajax request
+        if($request->isXmlHttpRequest()) {
+          $articles = $orderEntities->order($articleRepository, "title");
+          $em->flush();
+        }
 
-        $articles = $query->getResult();
+        //Get all the paths and pass it to the sorting form
+        $paths = $em->getRepository("CoreBundle:Path")->getPathsWithModules();
+        $sortingForm = $this->createForm('CoreBundle\Form\SortingType',null, ['choices'=>$paths, 'parentIndication' => true]);
+
+        $sortingForm->handleRequest($request);
+         if ($sortingForm->isSubmitted() && $sortingForm->isValid()) {
+           //Get the module object returned by the form input of name sort
+           $sortingModule = $sortingForm->getData()["sort"];
+           $articles = $articleRepository->getArticlesImagesByModule($sortingModule);
+         }
+         else {
+          $articles = $articleRepository->getArticlesWithCategoryModules();
+         }
 
         $deleteForm = $DeleteFormGenerator->generateDeleteForms($articles, 'admin_article_delete');
 
         return $this->render('CoreBundle:Admin/Article:index.html.twig', array(
             'articles' => $articles,
             'delete_form' => $deleteForm,
+            'sorting_form' => $sortingForm->createView()
         ));
     }
 
@@ -100,6 +114,9 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if($article->getImage() !== null) {
+              $this->getDoctrine()->getManager()->persist($article->getImage());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_article_edit', array('id' => $article->getId()));

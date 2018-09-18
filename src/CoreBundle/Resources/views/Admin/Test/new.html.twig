@@ -1,0 +1,23 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout d'un QCM{% endblock %}
+
+{% block main %}
+    <h2>Création d'un test</h2>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Créer le test" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_test_index') }}">Retour à la liste des QCM</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('JS/collectionForm.js') }}"></script>
+{% endblock %}

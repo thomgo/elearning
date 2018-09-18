@@ -1,0 +1,33 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Modules{% endblock %}
+
+{% block main %}
+<div>
+  <a href="{{ previous_page }}">Retour à la liste des modules</a>
+  <h2 class="mb-3">Articles du module : {{ module.title }}</h2>
+</div>
+<div class="row">
+  {% for article in articles %}
+    <div class="col col-sm-6 col-lg-4">
+      <div class="card my-3">
+        {% if article.image.path is defined %}
+        <img class="card-img-top img-fluid" src="{{ asset(article.image.fullPath) }}" alt="Card image cap">
+        {% endif %}
+        <div class="card-block">
+          <h4 class="card-title">{{ article.title }} || {{ article.date|date('d-m-Y') }}</h4>
+          <p>
+            {% for category in article.categories %}
+            {{ category.name }}
+            {% endfor %}
+          </p>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="{{ path('single', {"id": article.id}) }}" class="btn cardButton tlightBlue">Voir l'article</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

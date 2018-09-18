@@ -1,0 +1,31 @@
+<article>
+  <h3>Gestion du profile de : {{ user.username }}</h3>
+  <a class="btn cardButton tlightBlue" href="{{ path('fos_user_profile_edit')}}">Modifier mes informations</a>
+
+  <div class="mt-4">
+    <h4>Information personnelles</h4>
+    <p> Pseudo: {{ user.username }}</p>
+    <p> Email : {{ user.email }}</p>
+    <p> Age : {{ user.age }}</p>
+    {% if user.bio is empty %}
+    <p>Description : vous n'avez encore rien écrit</p>
+    {% else %}
+    <p>Description : {{user.bio }}</p>
+    {% endif %}
+    <h4>Progression :</h4>
+    <p>Parcours suivis :</p>
+      <ul id="parentElement">
+        {% for path in user.paths %}
+          <li>
+            {{ path.title }}
+            <button type="button" name="button" onclick="deleteItem(this)" value="{{ path.id }}"><i class="fa fa-times"></i></button>
+          </li>
+
+        {% endfor %}
+      </ul>
+  </div>
+</aticle>
+
+{% block javascript %}
+  <script src="{{ asset('JS/btnInfo.js') }}"></script>
+{% endblock %}

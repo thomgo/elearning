@@ -3,6 +3,8 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use CoreBundle\Entity\OrderableItem;
 
 /**
  * Module
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="module")
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\ModuleRepository")
  */
-class Module
+class Module extends OrderableItem
 {
 
     /**
@@ -164,7 +166,7 @@ class Module
     }
 
     public function addArticle(Article $article) {
-      if($this->articles>contains($article)) {
+      if($this->articles->contains($article)) {
         return;
       }
 

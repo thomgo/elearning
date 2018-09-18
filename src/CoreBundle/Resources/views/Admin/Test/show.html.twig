@@ -1,0 +1,47 @@
+{% extends "CoreBundle::adminLayout.html.twig" %}
+
+{# rewrite the sub_title block to tell the visitor where he is #}
+{% block sub_title %}{{ parent()}} Administration - Ajout d'un QCM{% endblock %}
+
+{% block main %}
+    <h2>Détail du test</h2>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ test.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ test.title }}</td>
+            </tr>
+            <tr>
+              <th>Article</th>
+              <td>{{ test.article.title }}</td>
+            </tr>
+            <tr>
+              <th>Questions</th>
+            </tr>
+        </tbody>
+    </table>
+    <ul>
+      {% for testBloc in test.testBlocs %}
+      <li>{{ testBloc.question }}</li>
+      {% endfor %}
+    </ul>
+
+    <ul class="list-group mt-3">
+        <li class="list-group-item">
+            <a href="{{ path('admin_test_index') }}">Retour à la liste des QCM</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{ path('admin_test_edit', { 'id': test.id }) }}">Modifier</a>
+        </li>
+        <li class="list-group-item">
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Supprimer">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
