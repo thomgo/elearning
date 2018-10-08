@@ -14,7 +14,7 @@
         <a class="nav-link tWhite" href="{{ path('default')}}">Accueil<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle tWhite" type="button" role="button" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle tWhite" role="button" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Langages
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -33,10 +33,10 @@
     </ul>
   </div>
   {% if app.user.username is defined %}
-    <a href="{{ path('fos_user_profile_show')}}"><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>Profile</a>
-    <a href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>Deconnexion</a>
+    <a class="tWhite" href="{{ path('fos_user_profile_show')}}"><i class="fa fa-user-circle fa-2x tWhite" aria-hidden="true"></i>Profile</a>
+    <a class="tWhite" href="{{ path('fos_user_security_logout')}}"><i class="fa fa-sign-out fa-2x tWhite" aria-hidden="true"></i>Deconnexion</a>
   {% else %}
-      <a href="{{ path('fos_user_security_login')}}"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>Connexion</a>
+      <a class="tWhite" href="{{ path('fos_user_security_login')}}"><i class="fa fa-sign-in fa-2x tWhite" aria-hidden="true"></i>Connexion</a>
   {% endif %}
 </nav>
 
